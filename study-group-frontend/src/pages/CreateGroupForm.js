@@ -16,7 +16,7 @@ export default function CreateGroupForm() {
 
     console.log('Creating group with:', { name, description, creator_id: userId });
 
-    fetch('http://localhost:5000/api/groups', {
+    fetch(`${process.env.REACT_APP_API_URL}/groups`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

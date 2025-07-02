@@ -9,12 +9,12 @@ export default function GroupDetail() {
   const { userId, token } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/groups/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/groups/${id}`)
       .then(res => res.json())
       .then(data => setGroup(data));
 
     if (userId && token) {
-      fetch(`http://localhost:5000/api/users/${userId}/groups`, {
+      fetch(`${process.env.REACT_APP_API_URL}/${userId}/groups`, {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then(res => res.json())
@@ -30,7 +30,7 @@ export default function GroupDetail() {
     alert("You must be logged in to join");
     return;
     }
-    fetch(`http://localhost:5000/api/memberships`, {
+    fetch(`${process.env.REACT_APP_API_URL}/memberships`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default function GroupDetail() {
     alert("You must be logged in to join");
     return;
     }
-    fetch(`http://localhost:5000/api/users/${userId}/memberships`, {
+    fetch(`${process.env.REACT_APP_API_URL}/users/${userId}/memberships`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -60,7 +60,7 @@ export default function GroupDetail() {
       .then(memberships => {
         const membership = memberships.find(m => m.study_group_id === parseInt(id));
         if (membership) {
-          fetch(`http://localhost:5000/api/memberships/${membership.id}`, {
+          fetch(`${process.env.REACT_APP_API_URL}memberships/${membership.id}`, {
             method: 'DELETE',
             headers: { Authorization: `Bearer ${token}` }
           }).then(() => setJoined(false));

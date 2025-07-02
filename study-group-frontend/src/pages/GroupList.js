@@ -8,7 +8,7 @@ export default function GroupList() {
   const { token } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/groups', {
+    fetch(`${process.env.REACT_APP_API_URL}/groups`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
