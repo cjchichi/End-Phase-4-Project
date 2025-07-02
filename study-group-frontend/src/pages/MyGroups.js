@@ -13,7 +13,7 @@ export default function MyGroups() {
       return;
     }
 
-    fetch(`${process.env.REACT_APP_API_URL}/users/${userId}/groups`, {
+    fetch(`${process.env.REACT_APP_API_URL}users/${userId}/groups`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
