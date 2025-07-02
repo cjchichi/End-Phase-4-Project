@@ -1,135 +1,7 @@
-# from flask import Blueprint, request, jsonify
-# from server.models import db, User, StudyGroup, GroupMembership
-# from server.schemas import UserSchema, StudyGroupSchema, GroupMembershipSchema
-
-# api_bp = Blueprint('api', __name__, url_prefix='/api')
-
-# user_schema = UserSchema()
-# group_schema = StudyGroupSchema()
-# membership_schema = GroupMembershipSchema()
-
-# group_list_schema = StudyGroupSchema(many=True)
-# membership_schema = GroupMembershipSchema(many=True)
-
-# # USER ENDPOINTS
-# @api_bp.route('/users', methods=['POST'])
-# def create_user():
-#     data = request.json
-#     user = User(username=data['username'], email=data['email'], password_hash=data['password'])
-#     db.session.add(user)
-#     db.session.commit()
-#     return user_schema.jsonify(user), 201
-
-# # GROUP ENDPOINTS
-# @api_bp.route('/groups', methods=['GET'])
-# def get_groups():
-#     groups = StudyGroup.query.all()
-#     return group_list_schema.jsonify(groups)
-
-# @api_bp.route('/groups', methods=['POST'])
-# def create_group():
-#     data = request.json
-#     group = StudyGroup(name=data['name'], description=data['description'], creator_id=data['creator_id'])
-#     db.session.add(group)
-#     db.session.commit()
-#     return group_schema.jsonify(group), 201
-
-# @api_bp.route('/groups/<int:id>', methods=['GET'])
-# def get_group(id):
-#     group = StudyGroup.query.get_or_404(id)
-#     return group_schema.jsonify(group)
-
-# @api_bp.route('/groups/<int:id>', methods=['PUT'])
-# def update_group(id):
-#     data = request.json
-#     group = StudyGroup.query.get_or_404(id)
-#     group.name = data['name']
-#     group.description = data['description']
-#     db.session.commit()
-#     return group_schema.jsonify(group)
-
-# @api_bp.route('/groups/<int:id>', methods=['DELETE'])
-# def delete_group(id):
-#     group = StudyGroup.query.get_or_404(id)
-#     db.session.delete(group)
-#     db.session.commit()
-#     return jsonify({"message": "Group deleted"})
-
-# # MEMBERSHIP ENDPOINT
-# @api_bp.route('/memberships', methods=['POST'])
-# def create_membership():
-#     data = request.json
-#     membership = GroupMembership(user_id=data['user_id'], study_group_id=data['study_group_id'], role=data['role'])
-#     db.session.add(membership)
-#     db.session.commit()
-#     return membership_schema.jsonify(membership), 201
-
-# @api_bp.route('/users/count', methods=['GET'])
-# def count_users():
-#     count = User.query.count()
-#     return jsonify({'count': count})
-
-# # User login route
-# @api_bp.route('/login', methods=['POST'])
-# def login():
-#     data = request.json
-#     user = User.query.filter_by(email=data['email']).first()
-#     if user and user.password_hash == data['password']:  # use hashing in production
-#         return jsonify({"message": "Login successful", "user_id": user.id})
-#     return jsonify({"message": "Invalid credentials"}), 401
-
-# # Groups a user belongs to
-# @api_bp.route('/groups/<int:id>/users', methods=['GET'])
-# def user_groups():
-#     memberships = GroupMembership.query.filter_by(user_id=id).all()
-#     group_ids = [m.study_group_id for m in memberships]
-#     groups = StudyGroup.query.filter(StudyGroup.id.in_(group_ids)).all()
-#     return group_list_schema.jsonify(groups)
-
-# # Count users
-# @api_bp.route('/users/count')
-# def user_count():
-#     return jsonify({'count': User.query.count()})
-
-# # User memberships list
-# @api_bp.route('/users/<int:id>/memberships')
-# def user_memberships(id):
-#     memberships = GroupMembership.query.filter_by(user_id=id).all()
-#     return memberships_schema.jsonify(memberships)
-
-# # Groups a user is in
-# @api_bp.route('/users/<int:id>/groups')
-# def user_groups(id):
-#     user = User.query.get_or_404(id)
-#     groups = [m.study_group for m in user.memberships]
-#     return group_list_schema.jsonify(groups)
-
-# # Join group
-# @api_bp.route('/memberships', methods=['POST'])
-# def join_group():
-#     data = request.json
-#     membership = GroupMembership(
-#         user_id=data['user_id'],
-#         study_group_id=data['study_group_id'],
-#         role=data.get('role', 'member')
-#     )
-#     db.session.add(membership)
-#     db.session.commit()
-#     return membership_schema.jsonify(membership)
-
-# # Leave group
-# @api_bp.route('/memberships/<int:id>', methods=['DELETE'])
-# def leave_group(id):
-#     membership = GroupMembership.query.get_or_404(id)
-#     db.session.delete(membership)
-#     db.session.commit()
-#     return jsonify({'message': 'Left group'})
-
-
 from flask import Blueprint, request, jsonify
-from server.models import User, StudyGroup, GroupMembership
-from server.schemas import UserSchema, StudyGroupSchema, GroupMembershipSchema
-from server.extensions import db, ma, bcrypt
+from models import User, StudyGroup, GroupMembership
+from schemas import UserSchema, StudyGroupSchema, GroupMembershipSchema
+from extensions import db, ma, bcrypt
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
 
 
@@ -142,15 +14,7 @@ membership_schema = GroupMembershipSchema()
 group_list_schema = StudyGroupSchema(many=True)
 memberships_schema = GroupMembershipSchema(many=True)
 
-# ---------------- USERS ----------------
-# @api_bp.route('/users', methods=['POST'])
-# def create_user():
-#     data = request.json
-#     user = User(username=data['username'], email=data['email'], password_hash=data['password'])
-#     db.session.add(user)
-#     db.session.commit()
-#     return jsonify(user_schema.dump(user)), 201
-
+# USERS
 @api_bp.route('/users', methods=['POST'])
 def create_user():
     data = request.json
@@ -159,9 +23,7 @@ def create_user():
     if User.query.filter_by(email=data['email']).first():
         return jsonify({"error": "Email already exists"}), 400
 
-    #user = User(username=data['username'], email=data['email'], password_hash=data['password'])
     hashed_pw = bcrypt.generate_password_hash(data['password']).decode('utf-8')
-    #user = User(username=data['useraname'], email=data['email'], password_hash=hashed_pw)
     user = User(username=data['username'], email=data['email'], password_hash=hashed_pw)
 
     db.session.add(user)
@@ -172,35 +34,6 @@ def create_user():
 def count_users():
     count = User.query.count()
     return jsonify({'count': count})
-
-# @api_bp.route('/login', methods=['POST'])
-# def login():
-#     data = request.json
-#     user = User.query.filter_by(email=data['email']).first()
-#     #if user and user.password_hash == data['password']:  # ⚠️ replace with hash check in production
-#     if user and bcrypt.check_password_hash(user.password_hash, data['password']):
-#         return jsonify({"message": "Login successful", "user_id": user.id})
-#     return jsonify({"message": "Invalid credentials"}), 401
-
-# @api_bp.route('/login', methods=['POST'])
-# def login():
-#     data = request.json
-#     user = User.query.filter_by(email=data['email']).first()
-
-#     if user and bcrypt.check_password_hash(user.password_hash, data['password']):
-#         return jsonify({"message": "Login successful", "user_id": user.id})
-    
-#     return jsonify({"message": "Invalid credentials"}), 401
-
-# @api_bp.route('/login', methods=['POST'])
-# def login():
-#     data = request.json
-#     user = User.query.filter_by(email=data['email']).first()
-
-#     if user and bcrypt.check_password_hash(user.password_hash, data['password']):
-#         return jsonify({"message": "Login successful", "user_id": user.id})
-    
-#     return jsonify({"message": "Invalid credentials"}), 401
 
 @api_bp.route('/login', methods=['POST'])
 def login():
@@ -237,7 +70,7 @@ def user_groups(id):
     groups = [m.study_group for m in user.memberships]
     return jsonify(group_list_schema.dump(groups))
 
-# ---------------- GROUPS ----------------
+#  GROUPS 
 @api_bp.route('/groups', methods=['GET'])
 def get_groups():
     groups = StudyGroup.query.all()
@@ -279,7 +112,7 @@ def group_members(id):
     users = User.query.filter(User.id.in_(user_ids)).all()
     return jsonify(UserSchema(many=True).dump(users))
 
-# ---------------- MEMBERSHIPS ----------------
+# MEMBERSHIPS 
 @api_bp.route('/memberships', methods=['POST'])
 def create_membership():
     data = request.json
