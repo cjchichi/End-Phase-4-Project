@@ -19,7 +19,7 @@ export default function LoginForm() {
       password: Yup.string().required('Required')
     }),
     onSubmit: (values, { setSubmitting }) => {
-      fetch(`${process.env.REACT_APP_API_URL}login`, {
+      fetch(`${process.env.REACT_APP_API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values)
