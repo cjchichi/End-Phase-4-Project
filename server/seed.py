@@ -1,6 +1,6 @@
-from server.models import db, User, StudyGroup, GroupMembership
-from server.app import app
-from server.extensions import bcrypt
+from models import db, User, StudyGroup, GroupMembership
+from app import app
+from extensions import bcrypt
 
 with app.app_context():
     # Drop and recreate all tables

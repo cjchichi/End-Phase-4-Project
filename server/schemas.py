@@ -1,5 +1,5 @@
-from server.app import ma
-from server.models import User, StudyGroup, GroupMembership
+from app import ma
+from models import User, StudyGroup, GroupMembership
 from marshmallow_sqlalchemy import SQLAlchemySchema
 class UserSchema(SQLAlchemySchema):
     class Meta:
