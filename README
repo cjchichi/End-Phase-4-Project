@@ -1,0 +1,111 @@
+# 📚 Study Group App
+
+A full-stack web application where users can register, log in, create and join study groups. Built with Flask (backend) and React (frontend), with a classy and elegant user interface.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React, CSS
+- **Backend:** Flask, Flask-JWT-Extended, SQLAlchemy
+- **Database:** PostgreSQL
+- **Authentication:** JWT (JSON Web Token)
+
+---
+
+## ✅ Features
+
+- User registration and login
+- JWT-based authentication
+- Create and join study groups
+- View your own groups
+- Elegant, modern UI
+- Protected routes
+
+---
+
+## 🔧 Setup Instructions
+
+### Backend
+
+1. **Clone the repo:**
+
+```bash
+git clone https://github.com/your-username/study-group-app.git
+cd study-group-app/server
+
+Set up Python environment:
+pipenv install
+pipenv shell
+
+Configure .env:
+FLASK_APP=app
+FLASK_ENV=development
+DATABASE_URL=postgresql://<username>:<password>@localhost:5432/<your_database>
+JWT_SECRET_KEY=your_secret_key
+
+Initialize the DB:
+flask db init
+flask db migrate -m "Initial migration"
+flask db upgrade
+
+Run the server:
+flask run
+
+Frontend
+Navigate to frontend:
+cd ../client
+
+Install dependencies:
+npm install
+
+Start React app:
+npm start
+
+📬 API Routes (Sample)
+Method	Route	Description
+POST	/api/register	Register user
+POST	/api/login	Login and get JWT
+GET	/api/groups	List all study groups
+POST	/api/groups	Create a new group
+GET	/api/groups/:id	Get single group detail
+POST	/api/memberships	Join group
+DELETE	/api/memberships/:id	Leave group
+GET	/api/users/:id/groups	View your groups
+
+🔐 Auth Flow
+Login returns a JWT token and user_id.
+
+Frontend stores these in context/localStorage.
+
+Protected routes require Authorization: Bearer <token> in headers.
+
+Routes like /api/groups and /api/memberships are secured with @jwt_required().
+
+🧪 Testing Routes via Postman
+Import the API collection or create your own.
+
+Add this header on protected routes:
+
+
+Authorization: Bearer <your_token>
+Use POST /api/login to get your token.
+
+📸 UI Preview
+Elegant layout with:
+
+A navbar
+
+Login/registration forms
+
+Dashboard with background image
+
+Styled group list and detail pages
+
+📁 Folder Structure
+/client       - React frontend
+/server       - Flask backend
+  ├── models
+  ├── routes.py
+  ├── db_setup.py
+

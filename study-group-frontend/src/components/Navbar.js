@@ -32,7 +32,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav style={{ padding: '1rem', background: '#e1e1e1' }}>
+    <nav style={{ padding: '1rem', background: 'black' }}>
       <Link to="/" style={{ marginRight: '1rem' }}>Dashboard</Link>
       <Link to="/groups" style={{ marginRight: '1rem' }}>Groups</Link>
       <Link to="/create-group" style={{ marginRight: '1rem' }}>Create Group</Link>
