@@ -1,0 +1,159 @@
+{
+  "info": {
+    "name": "Study Group API",
+    "_postman_id": "study-group-app",
+    "description": "Collection to test Study Group App",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "users"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"newuser\", \"email\": \"new@example.com\", \"password\": \"pass123\"}"
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "login"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\": \"alice@example.com\", \"password\": \"password123\"}"
+        }
+      }
+    },
+    {
+      "name": "Get All Groups",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:5000/api/groups",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "groups"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Group",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/groups",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "groups"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"New Group\", \"description\": \"Testing group creation\", \"creator_id\": 1}"
+        }
+      }
+    },
+    {
+      "name": "Join Group",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/memberships",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "memberships"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"user_id\": 1, \"study_group_id\": 2, \"role\": \"member\"}"
+        }
+      }
+    },
+    {
+      "name": "Leave Group",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:5000/api/memberships/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "memberships",
+            "1"
+          ]
+        }
+      }
+    }
+  ]
+}
