@@ -35,23 +35,6 @@ def count_users():
     count = User.query.count()
     return jsonify({'count': count})
 
-# @api_bp.route('/login', methods=['POST'])
-# def login():
-#     data = request.json
-#     email = data.get('email')
-#     password = data.get('password')
-    
-#     user = User.query.filter_by(email=data['email']).first()
-
-#     if user and bcrypt.check_password_hash(user.password_hash, data['password']):
-#         access_token = create_access_token(identity=user.id)
-#         return jsonify({
-#             "message": "Login successful",
-#             "access_token": access_token,
-#             "user_id": user.id
-#         })
-
-#     return jsonify({"message": "Invalid credentials"}), 401
 
 @api_bp.route('/register', methods=['POST'])
 def register():
@@ -79,13 +62,13 @@ def register():
 @api_bp.route('/login', methods=['POST'])
 def login():
     data = request.json
-    print("Login data:", data)  # Debug
+    print("Login data:", data)  
 
     email = data.get('email')
     password = data.get('password')
 
     user = User.query.filter_by(email=email).first()
-    print("User found:", user)  # Debug
+    print("User found:", user)  
 
     if user and bcrypt.check_password_hash(user.password_hash, password):
         access_token = create_access_token(identity=user.id)
