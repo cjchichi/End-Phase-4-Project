@@ -196,9 +196,9 @@
 
 
 from flask import Blueprint, request, jsonify
-from server.models import User, StudyGroup, GroupMembership
-from server.schemas import UserSchema, StudyGroupSchema, GroupMembershipSchema
-from server.extensions import db, ma, bcrypt
+from models import User, StudyGroup, GroupMembership
+from schemas import UserSchema, StudyGroupSchema, GroupMembershipSchema
+from extensions import db, ma, bcrypt
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')

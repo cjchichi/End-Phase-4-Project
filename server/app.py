@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 from pathlib import Path
 import os
 
-from server.extensions import db, ma, migrate, bcrypt
-from server.routes import api_bp
+from extensions import db, ma, migrate, bcrypt
+from routes import api_bp
 load_dotenv(dotenv_path=Path(__file__).parent / '.env')
 print(os.getenv('DATABASE_URL'))
 
