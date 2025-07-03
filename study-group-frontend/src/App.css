@@ -211,6 +211,8 @@ button:hover {
 }
 */
 
+
+
 /* General Reset and Fonts */
 body {
   margin: 0;
@@ -225,37 +227,51 @@ h1, h2, h3, h4, h5, h6 {
   color: #2c3e50;
 }
 
-/* Navbar Styling */
-nav {
-  background-color: #2e7d32; /* green */
-  padding: 1rem 2rem;
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #004d40;
+  padding: 1rem 2rem;
+  color: white;
 }
 
-nav a {
+.navbar a {
+  margin-right: 1.5rem;
   color: white;
-  margin-right: 1rem;
   text-decoration: none;
   font-weight: 500;
-  font-size: 1rem;
 }
 
-nav a:hover {
-  color: #f1c40f;
+.navbar a:hover {
+  text-decoration: underline;
 }
 
-nav button {
-  background-color: #f1c40f;
-  color: #2c3e50;
+.navbar .logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ffeb3b;
+}
+
+.navbar button {
+  background: #d32f2f;
   border: none;
   padding: 0.5rem 1rem;
+  color: white;
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
 }
+
+.navbar button:hover {
+  background: #b71c1c;
+}
+
+.nav-left, .nav-right {
+  display: flex;
+  align-items: center;
+}
+
 
 /* Dashboard Styling */
 .dashboard {
@@ -281,8 +297,8 @@ nav button {
   padding: 1.5rem;
   border-radius: 10px;
 }
-
-/* Form Styling (Login, Register, Create Group) */
+/*
+/* Form Styling (Login, Register, Create Group) *
 form {
   max-width: 500px;
   margin: 3rem auto;
@@ -321,6 +337,56 @@ form button {
 
 form button:hover {
   background-color: #1b5e20;
+}
+*/
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.form-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.form-button {
+  width: 100%;
+  padding: 0.8rem;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.form-button:hover {
+  background: #3a78c2;
 }
 
 /* Group List Styling */

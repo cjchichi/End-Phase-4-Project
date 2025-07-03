@@ -1,4 +1,4 @@
-from extensions import db
+from server.extensions import db
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -14,6 +14,13 @@ class StudyGroup(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(255))
+    location = db.Column(db.String)  
+    meeting_time = db.Column(db.String)  
+    max_members = db.Column(db.Integer)
+    category = db.Column(db.String(80))
+    meeting_link = db.Column(db.String(255))
+    is_private = db.Column(db.Boolean, default=False)
+
     creator_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     memberships = db.relationship('GroupMembership', back_populates='study_group')
 
