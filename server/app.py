@@ -22,4 +22,8 @@ bcrypt.init_app(app)
 jwt = JWTManager(app)
 CORS(app, resources={r"/*":{"origins":"https://study-group-app.netlify.app"}}, supports_credentials=True)
 
+with app.app_context():
+    from flask_migrate import upgrade
+    upgrade()
+
 app.register_blueprint(api_bp)
