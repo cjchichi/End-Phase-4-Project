@@ -208,7 +208,7 @@ export default function GroupList() {
   const groupsPerPage = 6;
 
   const { token } = useContext(AuthContext);
-
+/*
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/api/groups`, {
       headers: { Authorization: `Bearer ${token}` }
@@ -219,6 +219,26 @@ export default function GroupList() {
         setFilteredGroups(data);
       });
   }, [token]);
+*/
+
+useEffect(() => {
+  fetch(`${process.env.REACT_APP_API_URL}/api/groups`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(res => {
+      if (!res.ok) throw new Error(`Server error: ${res.status}`);
+      return res.json();
+    })
+    .then(data => {
+      if (!Array.isArray(data)) throw new Error('Invalid data format');
+      setGroups(data);
+    })
+    .catch(err => {
+      console.error('Fetch error:', err);
+    });
+}, [token]);
 
   // Search + Filter + Sort
   useEffect(() => {
