@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
-from .extensions import db, ma, migrate, bcrypt
-from .routes import api_bp
+from extensions import db, ma, migrate, bcrypt
+from routes import api_bp
 from flask_jwt_extended import JWTManager
 import os
 
