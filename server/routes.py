@@ -53,6 +53,29 @@ def count_users():
 
 #     return jsonify({"message": "Invalid credentials"}), 401
 
+@api_bp.route('/register', methods=['POST'])
+def register():
+    data = request.json
+    if User.query.filter_by(username=data['username']).first():
+        return jsonify({"error": "Username already exists"}), 400
+    if User.query.filter_by(email=data['email']).first():
+        return jsonify({"error": "Email already exists"}), 400
+
+    hashed_pw = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+    user = User(username=data['username'], email=data['email'], password_hash=hashed_pw)
+
+    db.session.add(user)
+    db.session.commit()
+
+    access_token = create_access_token(identity=user.id)
+
+    return jsonify({
+        "message": "Registration successful",
+        "access_token": access_token,
+        "user_id": user.id
+    }), 201
+
+
 @api_bp.route('/login', methods=['POST'])
 def login():
     data = request.json
