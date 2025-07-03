@@ -2,7 +2,7 @@
   "info": {
     "name": "Study Group API",
     "_postman_id": "study-group-app",
-    "description": "Collection to test Study Group App",
+    "description": "Collection to test Study Group App (Live)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -17,16 +17,14 @@
           }
         ],
         "url": {
-          "raw": "http://localhost:5000/api/users",
-          "protocol": "http",
+          "raw": "https://study-group-backend-t42s.onrender.com/api/users",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "study-group-backend-t42s",
+            "onrender",
+            "com"
           ],
-          "port": "5000",
-          "path": [
-            "api",
-            "users"
-          ]
+          "path": ["api", "users"]
         },
         "body": {
           "mode": "raw",
@@ -45,16 +43,14 @@
           }
         ],
         "url": {
-          "raw": "http://localhost:5000/api/login",
-          "protocol": "http",
+          "raw": "https://study-group-backend-t42s.onrender.com/api/login",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "study-group-backend-t42s",
+            "onrender",
+            "com"
           ],
-          "port": "5000",
-          "path": [
-            "api",
-            "login"
-          ]
+          "path": ["api", "login"]
         },
         "body": {
           "mode": "raw",
@@ -67,16 +63,14 @@
       "request": {
         "method": "GET",
         "url": {
-          "raw": "http://localhost:5000/api/groups",
-          "protocol": "http",
+          "raw": "https://study-group-backend-t42s.onrender.com/api/groups",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "study-group-backend-t42s",
+            "onrender",
+            "com"
           ],
-          "port": "5000",
-          "path": [
-            "api",
-            "groups"
-          ]
+          "path": ["api", "groups"]
         }
       }
     },
@@ -91,16 +85,14 @@
           }
         ],
         "url": {
-          "raw": "http://localhost:5000/api/groups",
-          "protocol": "http",
+          "raw": "https://study-group-backend-t42s.onrender.com/api/groups",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "study-group-backend-t42s",
+            "onrender",
+            "com"
           ],
-          "port": "5000",
-          "path": [
-            "api",
-            "groups"
-          ]
+          "path": ["api", "groups"]
         },
         "body": {
           "mode": "raw",
@@ -119,16 +111,14 @@
           }
         ],
         "url": {
-          "raw": "http://localhost:5000/api/memberships",
-          "protocol": "http",
+          "raw": "https://study-group-backend-t42s.onrender.com/api/memberships",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "study-group-backend-t42s",
+            "onrender",
+            "com"
           ],
-          "port": "5000",
-          "path": [
-            "api",
-            "memberships"
-          ]
+          "path": ["api", "memberships"]
         },
         "body": {
           "mode": "raw",
@@ -141,17 +131,14 @@
       "request": {
         "method": "DELETE",
         "url": {
-          "raw": "http://localhost:5000/api/memberships/1",
-          "protocol": "http",
+          "raw": "https://study-group-backend-t42s.onrender.com/api/memberships/1",
+          "protocol": "https",
           "host": [
-            "localhost"
+            "study-group-backend-t42s",
+            "onrender",
+            "com"
           ],
-          "port": "5000",
-          "path": [
-            "api",
-            "memberships",
-            "1"
-          ]
+          "path": ["api", "memberships", "1"]
         }
       }
     }
