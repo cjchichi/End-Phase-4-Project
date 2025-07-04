@@ -290,7 +290,7 @@ export default function MyGroups() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/my_groups`, {
+    fetch(`${import.meta.env.REACT_APP_API_URL}api/my_groups`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
