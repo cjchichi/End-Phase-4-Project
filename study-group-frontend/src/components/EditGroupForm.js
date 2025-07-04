@@ -218,7 +218,7 @@ export default function EditGroupForm({ group, token, onUpdate }) {
     setError('');
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/study_groups/${group.id}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/groups/${group.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

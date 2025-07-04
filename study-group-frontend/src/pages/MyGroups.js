@@ -150,7 +150,7 @@ export default function MyGroups() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}api/groups`, {
+    fetch(`${process.env.REACT_APP_API_URL}api/users/${user_id}/groups`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
