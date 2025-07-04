@@ -264,7 +264,7 @@ import { AuthContext } from '../context/AuthContext';
 import studyImage from '../assets/study.jpg'; // Replace with your actual image path
 
 export default function LoginPage() {
-  const { login } = useContext(AuthContext);
+  const { setToken } = useContext(AuthContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
@@ -276,14 +276,34 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    const response = await login(formData.username, formData.password);
-    if (response.success) {
-      navigate('/dashboard');
-    } else {
-      setError(response.message || 'Login failed.');
+    try{
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password
+        }),
+      });
+       if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Login failed.');
+      }
+      const data = await res.json();
+      if (data.success) {
+        // Assuming you have a setToken function to store the token
+        setToken(data.token); // Store the token in context or local storage
+        navigate('/dashboard');
+      } else{
+        setError(data.message || 'Login failed');
+      } 
+    } catch (err){
+      setError(err.message);
     }
-  };
-
+    };
+    
   return (
     <div className="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
       <div className="row shadow-lg w-100" style={{ maxWidth: '900px' }}>

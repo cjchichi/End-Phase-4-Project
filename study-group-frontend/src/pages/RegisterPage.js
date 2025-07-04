@@ -192,14 +192,33 @@ export default function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    const response = await register(formData.username, formData.email, formData.password);
-    if (response.success) {
-      navigate('/dashboard');
-    } else {
-      setError(response.message || 'Registration failed.');
+    try {
+      // Add the fetch call here
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData), // Send the form data as JSON
+      });
+      // Check if the response is ok
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Registration failed.');
+      }
+      const data = await res.json();
+      if (data.success) {
+        // Assuming you have a setToken function to store the token
+        setToken(data.token); // Store the token in context or local storage
+        navigate('/dashboard'); // Navigate to the dashboard on successful registration
+      } else {
+        setError(data.message || 'Registration failed.');
+      }
+    } catch (err) {
+      setError(err.message); // Set error message if the fetch fails
     }
   };
-
+  
   return (
     <div className="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
       <div className="row shadow-lg w-100" style={{ maxWidth: '900px' }}>
