@@ -214,11 +214,12 @@ export default function CreateGroupPage() {
     </div>
   );
 }
-*/
-
+*
+//part2
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import CreateGroupForm from '../components/CreateGroupForm';
 
 export default function CreateGroupPage() {
   const navigate = useNavigate();
@@ -318,6 +319,73 @@ export default function CreateGroupPage() {
 
           <button type="submit" className="btn btn-primary w-100">Create Group</button>
         </form>
+      </div>
+    </div>
+  );
+}
+*/
+
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import CreateGroupForm from './CreateGroupForm'; // Import the CreateGroupForm component
+
+export default function CreateGroupPage() {
+  const navigate = useNavigate();
+  const { token } = useContext(AuthContext);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    subject: '',
+    description: '',
+    meeting_time: '',
+  });
+
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/groups`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to create group.');
+      }
+
+      const data = await res.json();
+      navigate(`/groups/${data.id}`);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  return (
+    <div className="container d-flex align-items-center justify-content-center min-vh-100">
+      <div className="card shadow p-4" style={{ width: '100%', maxWidth: '500px' }}>
+        <h2 className="text-center mb-4">Create Study Group</h2>
+
+        {error && <div className="alert alert-danger">{error}</div>}
+
+        {/* Render the CreateGroupForm component and pass props */}
+        <CreateGroupForm 
+          formData={formData} 
+          handleChange={handleChange} 
+          handleSubmit={handleSubmit} 
+          error={error} 
+        />
       </div>
     </div>
   );
