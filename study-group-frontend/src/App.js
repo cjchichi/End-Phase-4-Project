@@ -24,7 +24,7 @@ function App() {
 }
 
 export default App;
-*/
+*
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -50,10 +50,75 @@ function App() {
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/my-groups" element={<MyGroups />} />
+        <Route path="/groups/:id/edit" element={<EditGroupPage />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
+*/
+
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
+import Navbar from './components/Navbar';
+
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import Dashboard from './pages/Dashboard';
+import GroupListPage from './pages/GroupListPage';
+import GroupDetailPage from './pages/GroupDetailPage';
+import EditGroupPage from './pages/EditGroupPage';
+import MyGroups from './pages/MyGroups';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <div className="min-h-screen bg-gray-50 font-sans">
+         <div className="container mt-5">
+    </div>
+          <Navbar />
+          <main className="p-4">
+            <Routes>
+              <Route path="/" element={<GroupListPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/groups" element={<GroupListPage />} />
+              <Route path="/groups/:id" element={<GroupDetailPage />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <PrivateRoute>
+                    <Dashboard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/groups/:id/edit"
+                element={
+                  <PrivateRoute>
+                    <EditGroupPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/my-groups"
+                element={
+                  <PrivateRoute>
+                    <MyGroups />
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+          </main>
+        </div>
+      </Router>
+    </AuthProvider>
+  );
+}
 
