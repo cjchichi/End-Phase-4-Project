@@ -242,7 +242,7 @@ export default function CreateGroupPage() {
     setError('');
 
     try {
-      const res = await fetch(`${import.meta.env.REACT_APP_API_URL}/api/study_groups`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/study_groups`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
