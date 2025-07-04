@@ -342,11 +342,11 @@ export default function LoginPage() {
             <div className="mb-3">
               <label className="form-label">Email Address</label>
               <input
-                name="username"
+                name="email"
                 type="email"
                 className="form-control"
                 placeholder="your@email.com"
-                value={formData.username}
+                value={formData.email}
                 onChange={handleChange}
                 required
               />
