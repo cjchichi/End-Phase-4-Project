@@ -274,36 +274,39 @@ export default function LoginPage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    try{
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: formData.username,
-          password: formData.password
-        }),
-      });
-       if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || 'Login failed.');
-      }
-      const data = await res.json();
-      if (data.success) {
-        // Assuming you have a setToken function to store the token
-        setToken(data.token); // Store the token in context or local storage
-        navigate('/dashboard');
-      } else{
-        setError(data.message || 'Login failed');
-      } 
-    } catch (err){
-      setError(err.message);
+  e.preventDefault();
+  setError('');
+  
+  try {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: formData.username, // Ensure this matches your backend
+        password: formData.password    // Ensure this matches your backend
+      }),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || 'Login failed.');
     }
-    };
-    
+
+    const data = await res.json();
+    // Check if the token is returned correctly
+    if (data.access_token) { // Adjusted to access_token based on your Flask code
+      setToken(data.access_token); // Store the token in context or local storage
+      navigate('/dashboard');
+    } else {
+      setError(data.message || 'Login failed');
+    }
+  } catch (err) {
+    setError(err.message);
+  }
+};
+
   return (
     <div className="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
       <div className="row shadow-lg w-100" style={{ maxWidth: '900px' }}>
