@@ -145,12 +145,12 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 export default function MyGroups() {
-  const { token, user } = useContext(AuthContext);
+  const { token, userId } = useContext(AuthContext);
   const [groups, setGroups] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}api/users/${user_id}/groups`, {
+    fetch(`${process.env.REACT_APP_API_URL}api/users/${userId}/groups`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
