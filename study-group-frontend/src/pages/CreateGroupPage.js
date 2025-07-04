@@ -351,18 +351,24 @@ export default function CreateGroupPage() {
     e.preventDefault();
     setError('');
 
+    if (!token) {
+      setError('You must be logged in to create a group')
+      return;
+    }
+
     try {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/api/groups`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MTYzMjc3MSwianRpIjoiNzZjZDcxOTItYjNkYy00Njc2LTgzZGMtMGU0YzczNmU0YWFjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNzUxNjMyNzcxLCJjc3JmIjoiZDFhOGQ2ZGMtZjkzYy00Nzk1LWEyMWEtOGIxMjgwZmU0ZjYwIiwiZXhwIjoxNzUxNjMzNjcxfQ.GASRoUVZL0Mu0MYGjVbG6qujzrmdCHD0zS6Mv2yUdz0`,
         },
         body: JSON.stringify(formData),
       });
 
       if (!res.ok) {
-        throw new Error('Failed to create group.');
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Failed to create group.');
       }
 
       const data = await res.json();

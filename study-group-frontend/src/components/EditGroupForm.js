@@ -219,10 +219,10 @@ export default function EditGroupForm({ group, token, onUpdate }) {
 
     try {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/api/groups/${group.id}`, {
-        method: 'PATCH',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MTYzMjc3MSwianRpIjoiNzZjZDcxOTItYjNkYy00Njc2LTgzZGMtMGU0YzczNmU0YWFjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNzUxNjMyNzcxLCJjc3JmIjoiZDFhOGQ2ZGMtZjkzYy00Nzk1LWEyMWEtOGIxMjgwZmU0ZjYwIiwiZXhwIjoxNzUxNjMzNjcxfQ.GASRoUVZL0Mu0MYGjVbG6qujzrmdCHD0zS6Mv2yUdz0`,
         },
         body: JSON.stringify(formData),
       });

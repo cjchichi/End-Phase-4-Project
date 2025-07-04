@@ -294,63 +294,49 @@ export default function GroupDetailPage() {
 }
 */
 
-import React, { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import React, { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 
-export default function GroupListPage() {
-  const { token } = useContext(AuthContext);
-  const [groups, setGroups] = useState([]);
+const GroupDetail = () => {
+  const { id } = useParams();
+  const [group, setGroup] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchGroups();
-  }, []);
+    const fetchGroup = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/groups/${id}`);
+        if (!response.ok) throw new Error('Failed to fetch group details');
+        const data = await response.json();
+        setGroup(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const fetchGroups = async () => {
-    try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/groups`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    fetchGroup();
+  }, [id]);
 
-      if (!res.ok) throw new Error('Failed to fetch groups');
-
-      const data = await res.json();
-      setGroups(data);
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div className="alert alert-danger">{error}</div>;
 
   return (
-    <div className="container py-5">
-      <h2 className="mb-4 text-center">All Study Groups</h2>
-
-      {error && <div className="alert alert-danger">{error}</div>}
-
-      <div className="row">
-        {groups.length === 0 ? (
-          <p className="text-center">No groups found.</p>
-        ) : (
-          groups.map((group) => (
-            <div className="col-md-4 mb-4" key={group.id}>
-              <div className="card h-100 shadow-sm">
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title">{group.name}</h5>
-                  <p className="card-text"><strong>Subject:</strong> {group.subject}</p>
-                  <p className="card-text">{group.description}</p>
-                  <Link to={`/groups/${group.id}`} className="btn btn-outline-primary mt-auto">
-                    View Details
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+    <div className="container mt-5">
+      <h2>{group.name}</h2>
+      <p>{group.description}</p>
+      <h5>Members:</h5>
+      <ul className="list-group">
+        {/* Assuming you have a way to fetch group members */}
+        {group.members && group.members.map(member => (
+          <li key={member.id} className="list-group-item">{member.username}</li>
+        ))}
+      </ul>
+      <Link to="/groups" className="btn btn-secondary mt-3">Back to Groups</Link>
     </div>
   );
-}
+};
 
+export default GroupDetail;

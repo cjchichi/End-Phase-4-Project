@@ -145,14 +145,15 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 export default function MyGroups() {
-  const { token, userId } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
   const [groups, setGroups] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}api/users/${userId}/groups`, {
+    //fetch the users group from id
+    fetch(`${process.env.REACT_APP_API_URL}api/users/${user.id}/groups`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MTYzMjc3MSwianRpIjoiNzZjZDcxOTItYjNkYy00Njc2LTgzZGMtMGU0YzczNmU0YWFjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNzUxNjMyNzcxLCJjc3JmIjoiZDFhOGQ2ZGMtZjkzYy00Nzk1LWEyMWEtOGIxMjgwZmU0ZjYwIiwiZXhwIjoxNzUxNjMzNjcxfQ.GASRoUVZL0Mu0MYGjVbG6qujzrmdCHD0zS6Mv2yUdz0`,
       },
     })
       .then((res) => {

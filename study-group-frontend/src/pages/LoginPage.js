@@ -266,7 +266,7 @@ import studyImage from '../assets/study.jpg'; // Replace with your actual image 
 export default function LoginPage() {
   const { setToken } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
 
   const handleChange = (e) => {
@@ -284,7 +284,7 @@ export default function LoginPage() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: formData.username, // Ensure this matches your backend
+        email: formData.email, // Ensure this matches your backend
         password: formData.password    // Ensure this matches your backend
       }),
     });
