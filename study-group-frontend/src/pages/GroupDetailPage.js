@@ -309,7 +309,7 @@ export default function GroupListPage() {
 
   const fetchGroups = async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/study_groups`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/groups`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
