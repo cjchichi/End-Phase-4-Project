@@ -168,7 +168,7 @@ export default function RegisterPage() {
     </div>
   );
 }
-*
+*/
 //bootsrap
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
@@ -219,6 +219,132 @@ export default function RegisterPage() {
     }
   };
   
+  return (
+    <div className="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
+      <div className="row shadow-lg w-100" style={{ maxWidth: '900px' }}>
+        {/* Left Panel */}
+        <div className="col-md-6 d-none d-md-flex flex-column justify-content-center align-items-center text-white p-4" style={{ backgroundColor: '#007bff' }}>
+          <h2 className="mb-3" style={{ fontWeight: 'bold' }}>
+            <span style={{ color: '#c3f0ff' }}>Study</span><span style={{ color: '#e5c9ff' }}>Group</span>
+          </h2>
+          <p className="text-center">
+            Join thousands of students collaborating and achieving academic success together.
+          </p>
+          <img src={studyImage} alt="Study group" className="img-fluid rounded my-3" />
+          <div className="d-flex gap-3">
+            <i className="bi bi-journal fs-3 text-white"></i>
+            <i className="bi bi-pencil fs-3 text-white"></i>
+            <i className="bi bi-lightbulb fs-3 text-white"></i>
+          </div>
+        </div>
+
+        {/* Right Panel (Register Form) */}
+        <div className="col-md-6 bg-white p-5">
+          <div className="d-flex justify-content-between mb-3">
+            <Link to="/login" className="text-decoration-none text-secondary">Login</Link>
+            <span className="fw-bold border-bottom border-primary pb-1">Register</span>
+          </div>
+
+          <h4 className="mb-4 fw-bold">Create Your Account</h4>
+          <p className="text-muted mb-4">Start your journey by joining a study group</p>
+
+          {error && <div className="alert alert-danger">{error}</div>}
+
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label">Username</label>
+              <input
+                name="username"
+                className="form-control"
+                value={formData.username}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label">Email Address</label>
+              <input
+                name="email"
+                type="email"
+                className="form-control"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label">Password</label>
+              <input
+                name="password"
+                type="password"
+                className="form-control"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <button type="submit" className="btn btn-primary w-100">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+/*
+import React, { useState, useContext } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import studyImage from '../assets/study.jpg'; // Use same image as in login
+
+export default function RegisterPage() {
+  const { login } = useContext(AuthContext); // Use the login function from AuthContext
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData), // Send the form data as JSON
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Registration failed.');
+      }
+
+      const data = await res.json();
+      if (data.access_token) { // Check if the token is returned correctly
+        login(data.userId, data.access_token); // Update context with userId and token
+        navigate('/dashboard'); // Navigate to the dashboard on successful registration
+      } else {
+        setError(data.message || 'Registration failed.');
+      }
+    } catch (err) {
+      setError(err.message); // Set error message if the fetch fails
+    }
+  };
+
   return (
     <div className="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
       <div className="row shadow-lg w-100" style={{ maxWidth: '900px' }}>
@@ -294,127 +420,3 @@ export default function RegisterPage() {
   );
 }
 */
-
-
-import React, { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import studyImage from '../assets/study.jpg'; // Use same image as in login
-
-export default function RegisterPage() {
-  const { login } = useContext(AuthContext); // Use the login function from AuthContext
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
-  const [error, setError] = useState('');
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData), // Send the form data as JSON
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || 'Registration failed.');
-      }
-
-      const data = await res.json();
-      if (data.access_token) { // Check if the token is returned correctly
-        login(data.userId, data.access_token); // Update context with userId and token
-        navigate('/dashboard'); // Navigate to the dashboard on successful registration
-      } else {
-        setError(data.message || 'Registration failed.');
-      }
-    } catch (err) {
-      setError(err.message); // Set error message if the fetch fails
-    }
-  };
-
-  return (
-    <div className="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
-      <div className="row shadow-lg w-100" style={{ maxWidth: '900px' }}>
-        {/* Left Panel */}
-        <div className="col-md-6 d-none d-md-flex flex-column justify-content-center align-items-center text-white p-4" style={{ backgroundColor: '#007bff' }}>
-          <h2 className="mb-3" style={{ fontWeight: 'bold' }}>
-            <span style={{ color: '#c3f0ff' }}>Study</span><span style={{ color: '#e5c9ff' }}>Group</span>
-          </h2>
-          <p className="text-center">
-            Join thousands of students collaborating and achieving academic success together.
-          </p>
-          <img src={studyImage} alt="Study group" className="img-fluid rounded my-3" />
-          <div className="d-flex gap-3">
-            <i className="bi bi-journal fs-3 text-white"></i>
-            <i className="bi bi-pencil fs-3 text-white"></i>
-            <i className="bi bi-lightbulb fs-3 text-white"></i>
-          </div>
-        </div>
-
-        {/* Right Panel (Register Form) */}
-        <div className="col-md-6 bg-white p-5">
-          <div className="d-flex justify-content-between mb-3">
-            <Link to="/login" className="text-decoration-none text-secondary">Login</Link>
-            <span className="fw-bold border-bottom border-primary pb-1">Register</span>
-          </div>
-
-          <h4 className="mb-4 fw-bold">Create Your Account</h4>
-          <p className="text-muted mb-4">Start your journey by joining a study group</p>
-
-          {error && <div className="alert alert-danger">{error}</div>}
-
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label className="form-label">Username</label>
-              <input
-                name="username"
-                className="form-control"
-                value={formData.username}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Email Address</label>
-              <input
-                name="email"
-                type="email"
-                className="form-control"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Password</label>
-              <input
-                name="password"
-                type="password"
-                className="form-control"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <button type="submit" className="btn btn-primary w-100">Register</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-}
