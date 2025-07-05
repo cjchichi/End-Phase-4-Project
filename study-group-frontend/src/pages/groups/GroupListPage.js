@@ -11,9 +11,13 @@ const GroupListPage = () => {
   if (error) return <div className="alert alert-danger">{error}</div>;
 
   console.log('Groups', groups);
-  const filteredGroups = Array.isArray(groups) ? groups.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) : [];
+  const groupList = groups.groups || [];
+  console.log('Group Names:', groupList.map(group => group.name));
+  console.log('Search Term', searchTerm);
+
+  const filteredGroups = Array.isArray(groupList) ? groupList.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) : [];
   console.log('Filtered Group', filteredGroups);
-  
+
   return (
     <div className="container">
       <h2 className="text-center">Groups</h2>
