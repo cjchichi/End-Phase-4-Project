@@ -244,27 +244,20 @@ export default RegisterForm;
 */
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Ensure you import Link for navigation
+import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import studyImage from '../../assets/images/study.jpg'; // Import the image
+import studyImage from '../../assets/images/study.jpg';
 
 const RegisterForm = ({ onRegister }) => {
   const [error, setError] = useState('');
 
-  // 1. Add validation schema
   const validationSchema = Yup.object({
-    username: Yup.string()
-      .required('Required'),
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Required'),
-    password: Yup.string()
-      .min(6, 'Password must be at least 6 characters')
-      .required('Required')
+    username: Yup.string().required('Required'),
+    email: Yup.string().email('Invalid email address').required('Required'),
+    password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required')
   });
 
-  // 2. Initialize Formik
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -273,7 +266,7 @@ const RegisterForm = ({ onRegister }) => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      setError(''); // Reset error before submission
+      setError('');
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/register`, {
           method: 'POST',
@@ -287,7 +280,8 @@ const RegisterForm = ({ onRegister }) => {
         }
 
         const data = await response.json();
-        onRegister(data.access_token);
+        console.log("Registration response:", data); // Log the response
+        onRegister(data.access_token); // Ensure onRegister is a function
       } catch (err) {
         setError(err.message);
       }
@@ -302,16 +296,8 @@ const RegisterForm = ({ onRegister }) => {
           <h2 className="mb-3" style={{ fontWeight: 'bold' }}>
             <span style={{ color: '#c3f0ff' }}>Study</span><span style={{ color: '#e5c9ff' }}>Group</span>
           </h2>
-          <p className="text-center">
-            Join thousands of students collaborating and achieving academic success together.
-          </p>
-          {/* Image added here */}
+          <p className="text-center">Join thousands of students collaborating and achieving academic success together.</p>
           <img src={studyImage} alt="Study group" className="img-fluid rounded my-3" />
-          <div className="d-flex gap-3">
-            <i className="bi bi-journal fs-3 text-white"></i>
-            <i className="bi bi-pencil fs-3 text-white"></i>
-            <i className="bi bi-lightbulb fs-3 text-white"></i>
-          </div>
         </div>
 
         {/* Right Panel (Register Form) */}

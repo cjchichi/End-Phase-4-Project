@@ -117,8 +117,8 @@ return (
 
         
 export default LoginForm;
-*
-
+*/
+/*
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Ensure you import Link for navigation
 import studyImage from '../../assets/images/study.jpg'; // Import the image
@@ -253,6 +253,7 @@ const LoginForm = ({ onLogin }) => {
     onSubmit: async (values) => {
       setError(''); // Reset error before submission
       try {
+        console.log("Login values:", values); // Log the values being sent
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -261,10 +262,12 @@ const LoginForm = ({ onLogin }) => {
 
         if (!response.ok) {
           const errorData = await response.json();
+          console.error("Error response:", errorData); // Log the error response
           throw new Error(errorData.message || 'Login failed.');
         }
 
         const data = await response.json();
+        console.log("Login response:", data); // Log the successful response
         onLogin(data.access_token);
       } catch (err) {
         setError(err.message);
