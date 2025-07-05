@@ -1,11 +1,18 @@
 import React from 'react';
 import LoginForm from '../../components/auth/LoginForm';
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = (token) => {
+    console.log("Logged in with token", token)
+    navigate('/dashboard');
+  }
   return (
     <div className="container">
       <h2 className="text-center">Login</h2>
-      <LoginForm onLogin={onLogin} />
+      <LoginForm onLogin={handleLogin} />
     </div>
   );
 };

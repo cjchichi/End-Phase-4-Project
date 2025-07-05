@@ -268,7 +268,7 @@ const LoginForm = ({ onLogin }) => {
 
         const data = await response.json();
         console.log("Login response:", data); // Log the successful response
-        onLogin(data.access_token);
+        onLogin(data.access_token); // Ensure onLogin is a function
       } catch (err) {
         setError(err.message);
       }
