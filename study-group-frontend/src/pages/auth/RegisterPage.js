@@ -13,16 +13,19 @@ const RegisterPage = ({ onRegister }) => {
 
 export default RegisterPage;
 */
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import RegisterForm from '../../components/auth/RegisterForm';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const {login} = useContext(AuthContext);
 
   const handleRegister = (token) => {
     // Handle the registration token (e.g., save it to state or local storage)
     console.log("Registered with token:", token);
+    login(token);
     navigate('/dashboard');
   };
 

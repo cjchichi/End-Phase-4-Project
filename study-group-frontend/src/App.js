@@ -33,7 +33,8 @@ function App() {
             <Routes>
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
-              
+              < Route path="/dashboard" element={<ProtectedRoute><DashboardPage/></ProtectedRoute>} />
+
               <Route path="/" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
               <Route path="/groups" element={<GroupListPage />} />
               <Route path="/groups/:id" element={<GroupDetailPage />} />
