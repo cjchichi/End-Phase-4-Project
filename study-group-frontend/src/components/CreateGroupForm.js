@@ -205,7 +205,7 @@ export default function CreateGroupForm({ formData, handleChange, handleSubmit, 
       <div className="mb-3">
         <label className="form-label">Meeting Time</label>
         <input
-          type="text"
+          type="datetime-local"
           name="meeting_time"
           className="form-control"
           value={formData.meeting_time}

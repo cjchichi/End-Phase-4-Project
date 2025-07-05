@@ -33,7 +33,7 @@ def create_app():
     jwt = JWTManager(app)
     CORS(app, resources={r"/*":{"origins":"https://study-group-app.netlify.app"}}, supports_credentials=True)
 
-    app.register_blueprint(api_bp)
+    app.register_blueprint(api_bp, url_prefix='/api')
 
     with app.app_context():
         from flask_migrate import upgrade
@@ -44,3 +44,4 @@ def create_app():
     return app
 
 app = create_app()
+
