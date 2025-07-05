@@ -12,7 +12,8 @@ const GroupListPage = () => {
 
   console.log('Groups', groups);
   const filteredGroups = Array.isArray(groups) ? groups.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) : [];
-
+  console.log('Filtered Group', filteredGroups);
+  
   return (
     <div className="container">
       <h2 className="text-center">Groups</h2>
