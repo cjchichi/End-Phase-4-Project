@@ -1,144 +1,133 @@
 /*
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
-export default function Navbar() {
-  const { userId, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout(); 
-    navigate('/login'); 
-  };
-
-  return (
-    <nav style={{ padding: '1rem', background: 'green' }}>
-      <Link to="/" style={{ marginRight: '1rem' }}>Dashboard</Link>
-      <Link to="/groups" style={{ marginRight: '1rem' }}>Groups</Link>
-      <Link to="/create-group" style={{ marginRight: '1rem' }}>Create Group</Link>
-      <Link to="/my-groups" style={{ marginRight: '1rem' }}>My Groups</Link>
-      
-      {!userId ? (
-        <>
-          <Link to="/register">Register</Link>
-          <Link to="/login">Login</Link>
-        </>
-      ) : (
-        <button onClick={handleLogout}>Logout</button>
-      )}
-    </nav>
-  );
-}
-*
-
-import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import '../App.css'; // Make sure this file exists
-
-export default function Navbar() {
-  const { userId, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout(); 
-    navigate('/login'); 
-  };
-
-  return (
-    <nav className="navbar">
-      <div className="nav-left">
-        <Link to="/" className="logo">StudyHub</Link>
-        <Link to="/groups">Groups</Link>
-        {userId && (
-          <>
-            <Link to="/create-group">Create Group</Link>
-            <Link to="/my-groups">My Groups</Link>
-          </>
-        )}
-      </div>
-      <div className="nav-right">
-        {!userId ? (
-          <>
-            <Link to="/register">Register</Link>
-            <Link to="/login">Login</Link>
-          </>
-        ) : (
-          <button onClick={handleLogout}>Logout</button>
-        )}
-      </div>
-    </nav>
-  );
-}
-*
-
-// src/components/Navbar.js
-import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-
-export default function Navbar() {
+const Navbar = () => {
   const { token, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
 
   return (
-    <nav className="bg-white shadow-md py-4 px-6 flex justify-between items-center">
-      <Link to="/" className="text-xl font-semibold text-green-600">StudyGroup</Link>
-      <div className="space-x-4 text-sm">
-        {token ? (
-          <>
-            <Link to="/dashboard" className="hover:underline text-gray-700">Dashboard</Link>
-            <Link to="/groups" className="hover:underline text-gray-700">Groups</Link>
-            <Link to="/my-groups" className="hover:underline text-gray-700">My Groups</Link>
-            <button onClick={handleLogout} className="bg-red-500 text-white px-3 py-1 rounded-xl hover:bg-red-600">Logout</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login" className="bg-green-600 text-white px-4 py-1.5 rounded-xl hover:bg-green-700">Login</Link>
-            <Link to="/register" className="border border-green-600 text-green-600 px-4 py-1.5 rounded-xl hover:bg-green-50">Register</Link>
-          </>
-        )}
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/">Study Groups</Link>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link" to="/groups">Groups</Link>
+            </li>
+            {token ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/my-groups">My Groups</Link>
+                </li>
+                <li className="nav-item">
+                  <button className="btn btn-link nav-link" onClick={logout}>Logout</button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Login</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">Register</Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
       </div>
     </nav>
   );
-}
-  */
+};
+
+export default Navbar;
+*
 
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
-export default function Navbar() {
+const Navbar = () => {
+  const { token, logout } = useContext(AuthContext);
+
+  return (
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/">Study Groups</Link>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link" to="/groups">Groups</Link>
+            </li>
+            {token ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/my-groups">My Groups</Link>
+                </li>
+                <li className="nav-item">
+                  <button className="btn btn-link nav-link" onClick={logout}>Logout</button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Login</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">Register</Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
+*/
+
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+
+const Navbar = () => {
   const { token, logout, currentUser } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container">
         <Link className="navbar-brand" to="/">StudyGroups</Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <button className="navbar-toggler" type="button" 
+                data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" 
+                aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
         </button>
 
         <div className="collapse navbar-collapse" id="navbarContent">
+          <ul className="navbar-nav me-auto">
+            <li className="nav-item">
+              <Link className="nav-link" to="/groups">Groups</Link>
+            </li>
+          </ul>
+          
           {token ? (
-            <ul className="navbar-nav ms-auto">
+            <ul className="navbar-nav">
               <li className="nav-item">
                 <Link className="nav-link" to="/dashboard">Dashboard</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/groups">Groups</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/my-groups">My Groups</Link>
@@ -151,7 +140,7 @@ export default function Navbar() {
               </li>
             </ul>
           ) : (
-            <ul className="navbar-nav ms-auto">
+            <ul className="navbar-nav">
               <li className="nav-item">
                 <Link className="nav-link" to="/login">Login</Link>
               </li>
@@ -164,5 +153,6 @@ export default function Navbar() {
       </div>
     </nav>
   );
-}
+};
 
+export default Navbar;
