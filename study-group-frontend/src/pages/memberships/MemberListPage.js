@@ -45,7 +45,7 @@ const MemberListPage = () => {
 
 export default MemberListPage;
 */
-
+/*
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import MemberCard from '../../components/memberships/MemberCard';
@@ -120,4 +120,53 @@ const MemberListPage = () => {
 };
 
 export default MemberListPage;
+*/
 
+
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+
+const MemberListPage = () => {
+  const { id } = useParams();
+  const { token } = useContext(AuthContext);
+  const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    console.log(`Fetching members for group ID: ${id}`);
+    const fetchMembers = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/groups/${id}/users`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) throw new Error('Failed to fetch members');
+        const data = await response.json();
+        setMembers(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMembers();
+  }, [id, token]);
+
+  console.log('Members:', members);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div className="alert alert-danger">{error}</div>;
+
+  return (
+    <div>
+      <h2>Members</h2>
+      {/* Render members here */}
+    </div>
+  );
+};
+
+export default MemberListPage;
