@@ -10,7 +10,8 @@ const GroupListPage = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="alert alert-danger">{error}</div>;
 
-  const filteredGroups = groups.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  console.log('Groups', groups);
+  const filteredGroups = Array.isArray(groups) ? groups.filter(group => group.name.toLowerCase().includes(searchTerm.toLowerCase())) : [];
 
   return (
     <div className="container">
