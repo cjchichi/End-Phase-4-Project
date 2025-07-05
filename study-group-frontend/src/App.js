@@ -90,8 +90,11 @@ export default function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/groups" element={<GroupListPage />} />
-              <Route path="/groups/:id" element={<GroupDetailPage />} />
-              <Route path='/groups' element={<CreateGroupPage />} />
+              <Route path="/create-group" element={
+                <PrivateRoute>
+                <CreateGroupPage />
+                </PrivateRoute>
+                } />
               <Route
                 path="/dashboard"
                 element={
@@ -116,15 +119,8 @@ export default function App() {
                   </PrivateRoute>
                 }
               />
+           <Route path="/groups/:id" element={<GroupDetailPage />} />
             </Routes>
-            <Route
-              path='/create-group'
-              element={
-                <PrivateRoute>
-                  <CreateGroupPage/>
-                </PrivateRoute>
-              }
-              />
           </main>
         </div>
       </Router>
