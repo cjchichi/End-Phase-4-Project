@@ -328,7 +328,7 @@ export default function CreateGroupPage() {
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import CreateGroupForm from './CreateGroupForm'; // Import the CreateGroupForm component
+import CreateGroupForm from '../components/CreateGroupForm'; // Import the CreateGroupForm component
 
 export default function CreateGroupPage() {
   const navigate = useNavigate();
