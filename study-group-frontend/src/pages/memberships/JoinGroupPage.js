@@ -80,7 +80,7 @@ const JoinGroupPage = () => {
         throw new Error(errorData.message || 'Failed to join group');
       }
 
-      navigate(`/groups/${id}`);
+      navigate(`/groups/${id}/members`);
     } catch (err) {
       setError(err.message);
     }
