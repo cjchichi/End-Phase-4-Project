@@ -257,7 +257,7 @@ export default function LoginPage() {
 }
 */
 //bootsrap
-
+/*
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
@@ -277,6 +277,8 @@ export default function LoginPage() {
   e.preventDefault();
   setError('');
   
+
+
   try {
     const res = await fetch(`${process.env.REACT_APP_API_URL}/api/login`, {
       method: 'POST',
@@ -306,6 +308,125 @@ export default function LoginPage() {
     setError(err.message);
   }
 };
+
+  return (
+    <div className="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
+      <div className="row shadow-lg w-100" style={{ maxWidth: '900px' }}>
+        {/* Left Panel *}
+        <div className="col-md-6 d-none d-md-flex flex-column justify-content-center align-items-center text-white p-4" style={{ backgroundColor: '#007bff' }}>
+          <h2 className="mb-3" style={{ fontWeight: 'bold' }}>
+            <span style={{ color: '#c3f0ff' }}>Study</span><span style={{ color: '#e5c9ff' }}>Group</span>
+          </h2>
+          <p className="text-center">
+            Join thousands of students collaborating and achieving academic success together.
+          </p>
+          <img src={studyImage} alt="Study group" className="img-fluid rounded my-3" />
+          <div className="d-flex gap-3">
+            <i className="bi bi-journal fs-3 text-white"></i>
+            <i className="bi bi-pencil fs-3 text-white"></i>
+            <i className="bi bi-lightbulb fs-3 text-white"></i>
+          </div>
+        </div>
+
+        {/* Right Panel (Login Form) *}
+        <div className="col-md-6 bg-white p-5">
+          <div className="d-flex justify-content-between mb-3">
+            <span className="fw-bold border-bottom border-primary pb-1">Login</span>
+            <Link to="/register" className="text-decoration-none text-secondary">Register</Link>
+          </div>
+
+          <h4 className="mb-4 fw-bold">Welcome Back</h4>
+          <p className="text-muted mb-4">Sign in to access your study groups and materials</p>
+
+          {error && <div className="alert alert-danger">{error}</div>}
+
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label">Email Address</label>
+              <input
+                name="email"
+                type="email"
+                className="form-control"
+                placeholder="your@email.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label">Password</label>
+              <input
+                name="password"
+                type="password"
+                className="form-control"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="mb-3 text-end">
+              <a href="#" className="text-decoration-none">Forgot password?</a>
+            </div>
+
+            <button type="submit" className="btn btn-primary w-100">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+*/
+
+import React, { useState, useContext } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import studyImage from '../assets/study.jpg'; // Replace with your actual image path
+
+export default function LoginPage() {
+  const { login } = useContext(AuthContext); // Use the login function from AuthContext
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email, // Ensure this matches your backend
+          password: formData.password // Ensure this matches your backend
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Login failed.');
+      }
+
+      const data = await res.json();
+      // Check if the token is returned correctly
+      if (data.access_token) { // Adjusted to access_token based on your Flask code
+        login(data.userId, data.access_token); // Update context with userId and token
+        navigate('/dashboard'); // Redirect to dashboard
+      } else {
+        setError(data.message || 'Login failed');
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   return (
     <div className="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">

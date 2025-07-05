@@ -72,6 +72,7 @@ import GroupListPage from './pages/GroupListPage';
 import GroupDetailPage from './pages/GroupDetailPage';
 import EditGroupPage from './pages/EditGroupPage';
 import MyGroups from './pages/MyGroups';
+import CreateGroupPage from './pages/CreateGroupPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -90,6 +91,7 @@ export default function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/groups" element={<GroupListPage />} />
               <Route path="/groups/:id" element={<GroupDetailPage />} />
+              <Route path='/groups' element={<CreateGroupPage />} />
               <Route
                 path="/dashboard"
                 element={
@@ -115,6 +117,14 @@ export default function App() {
                 }
               />
             </Routes>
+            <Route
+              path='/create-group'
+              element={
+                <PrivateRoute>
+                  <CreateGroupPage/>
+                </PrivateRoute>
+              }
+              />
           </main>
         </div>
       </Router>
