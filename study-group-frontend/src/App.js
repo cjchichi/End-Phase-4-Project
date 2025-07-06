@@ -32,25 +32,24 @@ function App() {
           <Navbar />
           <div className="main-content">
             <Routes>
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              < Route path="/dashboard" element={<ProtectedRoute><DashboardPage/></ProtectedRoute>} />
-
-              <Route path="/" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-              <Route path="/groups" element={<GroupListPage />} />
-              <Route path="/groups/:id" element={<GroupDetailPage />} />
-              <Route path="/groups/:id/members" element={<MemberListPage />} />
-
-              <Route path="/groups/new" element={<ProtectedRoute><CreateGroupPage /></ProtectedRoute>} />
-              <Route path="/groups/:id/edit" element={<ProtectedRoute><EditGroupPage /></ProtectedRoute>} />
-              <Route path="/groups/:id/join" element={<ProtectedRoute><JoinGroupPage /></ProtectedRoute>} />
-              <Route path="/groups/:id/leave" element={<ProtectedRoute><LeaveGroupPage /></ProtectedRoute>} />
-              <Route path="/groups/:id/members/:memberId/edit" element={<ProtectedRoute><EditMemberRolePage /></ProtectedRoute>} />
-              <Route path="/groups/:id/edit" element={<ProtectedRoute><EditGroupPage /></ProtectedRoute>} />
-              
-              <Route path="/my-groups" element={<ProtectedRoute><UserGroupsPage /></ProtectedRoute>} />
-              <Route path="/profile" element={<ProtectedRoute><UserProfilePage /></ProtectedRoute>} />
-            </Routes>
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/register" element={<RegisterPage />} />
+                  <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+                  <Route path="/" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+                  
+                  <Route path="/groups" element={<GroupListPage />} />
+                  <Route path="/groups/:id" element={<GroupDetailPage />} />
+                  <Route path="/groups/:id/members" element={<MemberListPage />} />
+                  
+                  <Route path="/groups/new" element={<ProtectedRoute><CreateGroupPage /></ProtectedRoute>} />
+                  <Route path="/groups/:id/edit" element={<ProtectedRoute><EditGroupPage /></ProtectedRoute>} />
+                  <Route path="/groups/:id/join" element={<ProtectedRoute><JoinGroupPage /></ProtectedRoute>} />
+                  <Route path="/groups/:id/leave" element={<ProtectedRoute><LeaveGroupPage /></ProtectedRoute>} />
+                  <Route path="/groups/:id/members/:memberId/edit" element={<ProtectedRoute><EditMemberRolePage /></ProtectedRoute>} />
+                  
+                  <Route path="/my-groups" element={<ProtectedRoute><User GroupsPage /></ProtectedRoute>} />
+                  <Route path="/profile" element={<ProtectedRoute><User ProfilePage /></ProtectedRoute>} />
+              </Routes>
           </div>
         </div>
       </Router>

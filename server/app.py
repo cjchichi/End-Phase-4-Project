@@ -31,7 +31,7 @@ def create_app():
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     jwt = JWTManager(app)
-    CORS(app, resources={r"/*":{"origins":"https://study-group-app.netlify.app"}}, supports_credentials=True)
+    CORS(app, resources={r"/*":{"origins":"https://study-group-app.netlify.app/"}}, supports_credentials=True)
 
     app.register_blueprint(api_bp, url_prefix='/api')
 
