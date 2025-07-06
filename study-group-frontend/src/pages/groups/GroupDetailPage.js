@@ -89,6 +89,7 @@ const GroupDetailPage = () => {
 export default GroupDetailPage;
 */
 
+
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
