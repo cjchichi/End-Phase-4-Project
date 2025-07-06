@@ -7,7 +7,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const {login} = useContext(AuthContext);
 
-  const handleLogin = (token) => {
+  const handleLogin = (token, user) => {
     console.log("Logged in with token", token)
     login (token, user);
     navigate('/dashboard');
