@@ -342,6 +342,7 @@ def update_group(id):
     group.name = data['name']
     group.description = data['description']
     db.session.commit()
+    
     return jsonify(group_schema.dump(group))
 
 @api_bp.route('/groups/<int:id>', methods=['DELETE'])
