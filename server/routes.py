@@ -301,6 +301,12 @@ def my_groups():
     groups = [m.study_group for m in memberships]
     return jsonify(group_list_schema.dump(groups))
 
+@api_bp.route('/me', methods=['GET'])
+@jwt_required()
+def get_current_user():
+    user_id = get_jwt_identity()
+    user = User.query.get_or_404(user_id)
+    return jsonify(user_schema.dump(user))
 
 #  GROUPS 
 @api_bp.route('/groups', methods=['GET'])

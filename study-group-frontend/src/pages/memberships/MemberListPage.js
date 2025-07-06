@@ -162,12 +162,26 @@ const MemberListPage = () => {
   if (error) return <div className="alert alert-danger">{error}</div>;
 
   return (
-    <div>
-      <h2>Members</h2>
-      {/* Render members here */}
-    </div>
-  );
-};
+    <div className="container py-4">
+    <h2 className="mb-4">Group Members</h2>
+    {error && <div className="alert alert-danger">{error}</div>}
+    {members.length > 0 ? (
+      <div className="row">
+        {members.map((member) => (
+          <div key={member.id} className="col-md-4 mb-3">
+            <div className="card p-3">
+              <h5>{member.username}</h5>
+              <p>{member.email}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <p>No members found</p>
+    )}
+  </div>
+);
+}
 
 export default MemberListPage;
 
