@@ -131,7 +131,7 @@ const app = express();
 
 // Use CORS middleware
 app.use(cors({
-    origin: 'https://study-group-app.netlify.app/', // Replace with your frontend URL
+    origin: ['https://study-group-app.netlify.app', 'https://study-group-app.netlify.app/'], // Replace with your frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify the allowed methods
     credentials: true // Allow credentials (cookies, authorization headers, etc.)
 }));
