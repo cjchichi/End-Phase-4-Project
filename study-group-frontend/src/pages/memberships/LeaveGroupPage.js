@@ -67,10 +67,10 @@ import { AuthContext } from '../../context/AuthContext';
 
 const LeaveGroupPage = () => {
   const { id } = useParams();
-  const { token } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [error, setError] = useState('');
-
+/*
   const handleLeave = async () => {
     try {
       const membershipsRes = await fetch(`${process.env.REACT_APP_API_URL}/api/users/me/memberships`, {
@@ -100,7 +100,38 @@ const LeaveGroupPage = () => {
       setError(err.message);
     }
   };
+*/
 
+const handleLeave = async () => {
+  try {
+    // Use the correct endpoint
+    const membershipsRes = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${user.id}/memberships`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!membershipsRes.ok) throw new Error('Failed to fetch memberships');
+
+    const memberships = await membershipsRes.json();
+    const membership = memberships.find(m => m.study_group_id == id);
+
+    if (!membership) throw new Error('Not a member of this group');
+
+    const deleteRes = await fetch(`${process.env.REACT_APP_API_URL}/api/memberships/${membership.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!deleteRes.ok) throw new Error('Failed to leave group');
+
+    navigate('/my-groups');
+  } catch (err) {
+    setError(err.message);
+  }
+};
   return (
     <div className="container text-center py-5">
       <h2>Leave Group</h2>
