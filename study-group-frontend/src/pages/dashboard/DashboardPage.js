@@ -295,6 +295,27 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+        {/* Joined Groups */}
+        <div className="col-md-4">
+          <div className="card shadow border-0 h-100">
+            <div className="card-body d-flex flex-column">
+              <h5 className="card-title">Groups You Joined</h5>
+              <p className="card-text">Leave any group you're no longer interested in.</p>
+              <Link to="/my-groups" className="btn btn-warning mt-auto">Leave Groups</Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Groups You Created */}
+        <div className="col-md-4">
+          <div className="card shadow border-0 h-100">
+            <div className="card-body d-flex flex-column">
+              <h5 className="card-title">Groups You Created</h5>
+              <p className="card-text">Manage or delete groups you own.</p>
+              <Link to="/my-groups" className="btn btn-danger mt-auto">Delete My Groups</Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

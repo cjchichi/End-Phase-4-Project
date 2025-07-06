@@ -298,8 +298,14 @@ def user_groups(id):
 def my_groups():
     user_id = get_jwt_identity()
     memberships = GroupMembership.query.filter_by(user_id=user_id).all()
-    groups = [m.study_group for m in memberships]
-    return jsonify(group_list_schema.dump(groups))
+    result = []
+    for m in memberships:
+        group_data = group_schema.dump(m.study_group)
+        group_data['role'] = m.role  # include role
+        group_data['membership_id'] = m.id  # for editing/deleting
+        group_data['creator_id'] = m.study_group.creator_id
+        result.append(group_data)
+    return jsonify(result)
 
 @api_bp.route('/me', methods=['GET'])
 @jwt_required()
