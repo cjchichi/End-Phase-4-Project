@@ -108,8 +108,8 @@ function App() {
                   <Route path="/groups/:id/leave" element={<ProtectedRoute><LeaveGroupPage /></ProtectedRoute>} />
                   <Route path="/groups/:id/members/:memberId/edit" element={<ProtectedRoute><EditMemberRolePage /></ProtectedRoute>} />
                   
-                  <Route path="/my-groups" element={<ProtectedRoute><User GroupsPage /></ProtectedRoute>} />
-                  <Route path="/profile" element={<ProtectedRoute><User ProfilePage /></ProtectedRoute>} />
+                  <Route path="/my-groups" element={<ProtectedRoute><UserGroupsPage /></ProtectedRoute>} />
+                  <Route path="/profile" element={<ProtectedRoute><UserProfilePage /></ProtectedRoute>} />
               </Routes>
           </div>
         </div>
