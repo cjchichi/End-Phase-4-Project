@@ -437,3 +437,10 @@ def update_membership(id):
     db.session.commit()
 
     return jsonify(membership_schema.dump(membership))
+
+@api_bp.route('/my-memberships', methods=['GET'])
+@jwt_required()
+def my_memberships():
+    user_id = get_jwt_identity()
+    memberships = GroupMembership.query.filter_by(user_id=user_id).all()
+    return jsonify(memberships_schema.dump(memberships))

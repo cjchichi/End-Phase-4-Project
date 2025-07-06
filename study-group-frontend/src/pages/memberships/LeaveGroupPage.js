@@ -68,6 +68,7 @@ import { AuthContext } from '../../context/AuthContext';
 const LeaveGroupPage = () => {
   const { id } = useParams();
   const { token, user } = useContext(AuthContext);
+  console.log("Token:", token);
   const navigate = useNavigate();
   const [error, setError] = useState('');
 /*
@@ -105,7 +106,7 @@ const LeaveGroupPage = () => {
 const handleLeave = async () => {
   try {
     // Use the correct endpoint
-    const membershipsRes = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${user.id}/memberships`, {
+    const membershipsRes = await fetch(`${process.env.REACT_APP_API_URL}/api/my-memberships`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }

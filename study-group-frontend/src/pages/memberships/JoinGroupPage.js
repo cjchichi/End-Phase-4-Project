@@ -111,6 +111,7 @@ import { AuthContext } from '../../context/AuthContext';
 const JoinGroupPage = () => {
   const { id } = useParams();
   const { token, user } = useContext(AuthContext);
+  console.log("Token:", token);
   const navigate = useNavigate();
 
   const handleJoin = async () => {

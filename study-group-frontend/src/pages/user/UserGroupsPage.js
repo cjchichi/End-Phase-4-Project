@@ -62,6 +62,7 @@ import GroupCard from '../../components/groups/GroupCard';
 
 const UserGroupsPage = () => {
   const { token } = useContext(AuthContext);
+  console.log("Token:", token);
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
