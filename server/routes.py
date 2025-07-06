@@ -381,23 +381,24 @@ def search_groups():
 @api_bp.route('/memberships', methods=['POST'])
 def create_membership():
     data = request.json
+    try:
 
-    existing = GroupMembership.query.filter_by(
-        user_id=data['user_id'],
-        study_group_id=data['study_group_id']
-    ).first()
+        existing = GroupMembership.query.filter_by(
+            user_id=data['user_id'],
+            study_group_id=data['study_group_id']
+        ).first()
 
-    if existing:
-        return jsonify({"error": "User is already a member of this group"}), 400
+        if existing:
+            return jsonify({"error": "User is already a member of this group"}), 400
 
-    membership = GroupMembership(
-        user_id=data['user_id'],
-        study_group_id=data['study_group_id'],
-        role=data['role']
-    )
-    db.session.add(membership)
-    db.session.commit()
-    return jsonify(membership_schema.dump(membership)), 201
+        membership = GroupMembership(
+            user_id=data['user_id'],
+            study_group_id=data['study_group_id'],
+            role=data['role']
+        )
+        db.session.add(membership)
+        db.session.commit()
+        return jsonify(membership_schema.dump(membership)), 201
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500

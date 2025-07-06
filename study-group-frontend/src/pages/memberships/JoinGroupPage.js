@@ -124,8 +124,8 @@ const JoinGroupPage = () => {
         },
         body: JSON.stringify({ study_group_id: id, role: 'member' })
       });
-      const text = await response.text();
-      console.log('Response:', text);
+      //const text = await response.text();
+      //console.log('Response:', text);
       
 
       if (!response.ok) {
