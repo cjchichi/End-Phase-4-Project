@@ -110,7 +110,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 const JoinGroupPage = () => {
   const { id } = useParams();
-  const { token } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleJoin = async () => {
@@ -122,7 +122,7 @@ const JoinGroupPage = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ study_group_id: id, role: 'member' })
+        body: JSON.stringify({ study_group_id: id, user_id:user?.id, role: 'member' })
       });
       const text = await response.text();
       console.log('Response:', text);

@@ -325,17 +325,20 @@ def create_group():
     db.session.commit()
     return jsonify(group_schema.dump(group)), 201
 
-@api_bp.route('/groups/<int:id>', methods=['GET'])
-def get_group(id):
-    group = StudyGroup.query.get_or_404(id)
-    return jsonify(group_schema.dump(group))
+# @api_bp.route('/groups/<int:id>', methods=['GET'])
+# def get_group(id):
+#     group = StudyGroup.query.get_or_404(id)
+#     return jsonify(group_schema.dump(group))
 
-@api_bp.route('/groups/<int:id>', methods=['PUT'])
+@api_bp.route('/groups/<int:id>', methods=['GET', 'PUT'])
 @jwt_required()
-def update_group(id):
-    user_id = get_jwt_identity()
+def get_or_update_group(id):
     group = StudyGroup.query.get_or_404(id)
-    if group.creator_id != user_id:
+    if request.method == 'GET':
+        return jsonify(group_schema.dump(group))
+        
+    user_id = get_jwt_identity()
+    if not user_id or group.creator_id != user_id:
         return jsonify({"error": "Unauthorized"}), 403
 
     data = request.json
@@ -379,41 +382,47 @@ def search_groups():
 
 # MEMBERSHIPS 
 @api_bp.route('/memberships', methods=['POST'])
+@jwt_required()
 def create_membership():
+    user_id =get_jwt_identity()
     data = request.json
-    try:
-        existing = GroupMembership.query.filter_by(
-            user_id=data['user_id'],
-            study_group_id=data['study_group_id']
-        ).first()
+    
+    existing = GroupMembership.query.filter_by(
+        user_id=user_id,
+        study_group_id=data['study_group_id']
+    ).first()
 
-        if existing:
-            return jsonify({"error": "User  is already a member of this group"}), 400
+    if existing:
+        return jsonify({"error": "User  is already a member of this group"}), 400
 
-        membership = GroupMembership(
-            user_id=data['user_id'],
-            study_group_id=data['study_group_id'],
-            role=data['role']
-        )
-        db.session.add(membership)
-        db.session.commit()
-        return jsonify(membership_schema.dump(membership)), 201
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500  # Ensure this is correctly indented
-
+    membership = GroupMembership(
+        user_id=user_id,
+        study_group_id=data['study_group_id'],
+        role=data['role']
+    )
+    db.session.add(membership)
+    db.session.commit()
+    return jsonify(membership_schema.dump(membership)), 201
 
 @api_bp.route('/memberships/<int:id>', methods=['DELETE'])
+@jwt_required()
 def leave_group(id):
+    user_id = get_jwt_identity()
     membership = GroupMembership.query.get_or_404(id)
+
+    if membership.user_id != user_id:
+        return jsonify({"error": "Unauthorized"}), 403
     db.session.delete(membership)
     db.session.commit()
     return jsonify({'message': 'Left group'})
 
 @api_bp.route('/memberships/<int:id>', methods=['PUT'])
+@jwt_required()
 def update_membership(id):
     data = request.json
     membership = GroupMembership.query.get_or_404(id)
+    if get_jwt_identity() != membership.study_group.creator_id:
+        return jsonify({"error": "Only group creator can update roles"}), 403
 
     membership.role = data.get('role', membership.role)
     db.session.commit()
