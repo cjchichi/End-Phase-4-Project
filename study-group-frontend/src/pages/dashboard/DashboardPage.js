@@ -219,11 +219,11 @@ const Dashboard = () => {
             <div className="card-body d-flex flex-column">
               <h5 className="card-title">Membership Management</h5>
               <p className="card-text">Manage your group memberships and roles.</p>
-              <Link to="/members" className="btn btn-info mt-auto">Member List</Link>
-              <Link to="/join-group" className="btn btn-warning mt-auto">Join Group</Link>
-              <Link to="/leave-group" className="btn btn-danger mt-auto">Leave Group</Link>
-              <Link to="/edit-member-role" className="btn btn-light mt-auto">Edit Member Role</Link>
-              <Link to="/groups/:id/edit" className="btn btn-secondary mt-auto">Edit Group</Link> {/* Add this line */}
+              <Link to={`/groups/${group.id}/members`} className="btn btn-info mt-auto">Member List</Link>
+              <Link to={`/groups/${group.id}/join`} className="btn btn-warning mt-auto">Join Group</Link>
+              <Link to={`/groups/${group.id}/leave`} className="btn btn-danger mt-auto">Leave Group</Link>
+              <Link to={`/groups/${group.id}/members/${member.id}/edit`} className="btn btn-light mt-auto">Edit Member Role</Link>
+              <Link to={`/groups/${group.id}/edit`} className="btn btn-secondary mt-auto">Edit Group</Link>
             </div>
           </div>
         </div>

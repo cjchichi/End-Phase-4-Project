@@ -293,6 +293,15 @@ def user_groups(id):
     groups = [m.study_group for m in user.memberships]
     return jsonify(group_list_schema.dump(groups))
 
+@api_bp.route('/my-groups', methods=['GET'])
+@jwt_required()
+def my_groups():
+    user_id = get_jwt_identity()
+    memberships = GroupMembership.query.filter_by(user_id=user_id).all()
+    groups = [m.study_group for m in memberships]
+    return jsonify(group_list_schema.dump(groups))
+
+
 #  GROUPS 
 @api_bp.route('/groups', methods=['GET'])
 def get_groups():
