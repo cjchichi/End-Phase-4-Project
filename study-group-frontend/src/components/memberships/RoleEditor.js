@@ -1,4 +1,4 @@
-/*
+
 import React, { useState } from 'react';
 
 const RoleEditor = ({ member, onUpdate }) => {
@@ -30,8 +30,8 @@ const RoleEditor = ({ member, onUpdate }) => {
 };
 
 export default RoleEditor;
-*/
 
+/*
 // src/components/RoleEditor.js
 import React from 'react';
 
@@ -45,10 +45,11 @@ const RoleEditor = ({ memberId, currentRole, onUpdate }) => {
             <select value={currentRole} onChange={(e) => handleRoleChange(e.target.value)}>
                 <option value="member">Member</option>
                 <option value="admin">Admin</option>
-                {/* Add more roles as needed */}
+                {/* Add more roles as needed *}
             </select>
         </div>
     );
 };
 
 export default RoleEditor;
+*/

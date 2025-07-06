@@ -122,7 +122,7 @@ const MemberListPage = () => {
 export default MemberListPage;
 */
 
-/*
+
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
@@ -164,15 +164,15 @@ const MemberListPage = () => {
   return (
     <div>
       <h2>Members</h2>
-      {/* Render members here *}
+      {/* Render members here */}
     </div>
   );
 };
 
 export default MemberListPage;
-*/
 
 
+/*
 // src/pages/memberships/MemberListPage.js
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -204,3 +204,4 @@ const MemberListPage = () => {
 };
 
 export default MemberListPage;
+*/

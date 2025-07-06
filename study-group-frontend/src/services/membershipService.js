@@ -1,4 +1,4 @@
-/*
+
 export const joinGroup = async (groupId, token) => {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/api/memberships`, {
     method: 'POST',
@@ -67,13 +67,14 @@ export const fetchUserMemberships = async (userId, token) => {
   if (!response.ok) throw new Error('Failed to fetch user memberships');
   return await response.json();
 };
-*/
 
+
+/*
 // src/services/membershipService.js
 const API_URL = process.env.REACT_APP_API_URL; // Ensure this is set in your .env file
 
 export const createMembership = async (membershipData) => {
-    const response = await fetch(`${API_URL}/memberships`, {
+    const response = await fetch(`${API_URL}/api/memberships`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ export const createMembership = async (membershipData) => {
 };
 
 export const leaveGroup = async (membershipId) => {
-    const response = await fetch(`${API_URL}/memberships/${membershipId}`, {
+    const response = await fetch(`${API_URL}/api/groups/${membershipId}`, {
         method: 'DELETE',
     });
     if (!response.ok) {
@@ -97,7 +98,7 @@ export const leaveGroup = async (membershipId) => {
 };
 
 export const updateMembership = async (membershipId, role) => {
-    const response = await fetch(`${API_URL}/memberships/${membershipId}`, {
+    const response = await fetch(`${API_URL}/api/memberships/${membershipId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -112,7 +113,7 @@ export const updateMembership = async (membershipId, role) => {
 
 // Add the getMembers function
 export const getMembers = async (groupId) => {
-    const response = await fetch(`${API_URL}/memberships?study_group_id=${groupId}`, {
+    const response = await fetch(`${API_URL}/api/groups/${groupId}/users`, {
         method: 'GET',
     });
     if (!response.ok) {
@@ -120,3 +121,4 @@ export const getMembers = async (groupId) => {
     }
     return await response.json();
 };
+*/

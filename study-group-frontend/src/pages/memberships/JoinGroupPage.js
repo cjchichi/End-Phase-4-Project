@@ -101,7 +101,7 @@ const JoinGroupPage = () => {
 };
 
 export default JoinGroupPage;
-*
+*/
 
 
 import React, { useContext } from 'react';
@@ -124,8 +124,8 @@ const JoinGroupPage = () => {
         },
         body: JSON.stringify({ study_group_id: id, role: 'member' })
       });
-      //const text = await response.text();
-      //console.log('Response:', text);
+      const text = await response.text();
+      console.log('Response:', text);
       
 
       if (!response.ok) {
@@ -148,8 +148,8 @@ const JoinGroupPage = () => {
 };
 
 export default JoinGroupPage;
-*/
 
+/*
 // src/pages/memberships/JoinGroupPage.js
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -178,3 +178,4 @@ const JoinGroupPage = () => {
 };
 
 export default JoinGroupPage;
+*/

@@ -26,6 +26,7 @@ const GroupListPage = () => {
         {filteredGroups.map(group => (
           <div className="col-md-4" key={group.id}>
             <GroupCard group={group} />
+            <link to ={`/groups/${group.id}/members`}>{group.name}</link>
           </div>
         ))}
       </div>
