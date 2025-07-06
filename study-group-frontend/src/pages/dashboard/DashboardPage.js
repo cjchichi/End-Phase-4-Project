@@ -292,6 +292,8 @@ const Dashboard = () => {
               <h5 className="card-title">Membership Management</h5>
               <p className="card-text">Manage your group memberships and roles.</p>
               <Link to="/my-groups" className="btn btn-info mt-auto">Manage Memberships</Link>
+              <Link to={`/groups/${group.id}/members/${group.membership_id}/edit`} className="btn btn-secondary mt-2">Edit Member Role</Link>
+
             </div>
           </div>
         </div>
@@ -303,6 +305,7 @@ const Dashboard = () => {
         <h5 className="card-title">Manage My Groups</h5>
         <p className="card-text">Leave or delete groups you've joined or created.</p>
         <Link to="/my-groups" className="btn btn-warning mt-auto">Manage Groups</Link>
+        <Link to={`/groups/${group.id}/edit`} className="btn btn-warning mt-2">Edit Group</Link>
         </div>
         </div>  
         </div>
