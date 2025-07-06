@@ -80,9 +80,9 @@ import JoinGroupPage from './pages/memberships/JoinGroupPage';
 import LeaveGroupPage from './pages/memberships/LeaveGroupPage';
 import MemberListPage from './pages/memberships/MemberListPage';
 import EditMemberRolePage from './pages/memberships/EditMemberRolePage';
-import UserGroupsPage from './pages/user/UserGroupsPage';
-import UserProfilePage from './pages/user/UserProfilePage';
-import NotFoundPage from './pages/NotFoundPage'; // Import a NotFoundPage component
+//import UserGroupsPage from './pages/user/UserGroupsPage';
+//import UserProfilePage from './pages/user/UserProfilePage';
+
 
 // Styles
 import './App.css';
@@ -110,7 +110,7 @@ function App() {
               <Route path="/groups/:id/members/:memberId/edit" element={<ProtectedRoute><EditMemberRolePage /></ProtectedRoute>} />
               <Route path="/my-groups" element={<ProtectedRoute><User GroupsPage /></ProtectedRoute>} />
               <Route path="/profile" element={<ProtectedRoute><User ProfilePage /></ProtectedRoute>} />
-              <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route for 404 */}
+              
             </Routes>
           </div>
         </div>
