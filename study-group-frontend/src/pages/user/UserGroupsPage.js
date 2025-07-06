@@ -199,7 +199,7 @@ const UserGroupsPage = () => {
                   <h5 className="card-title">{group.name}</h5>
                   <p className="card-text">{group.description}</p>
                   <p><strong>Role:</strong> {group.role}</p>
-                  <div className="mt-auto d-flex justify-content-between">
+                  <div className="mt-auto d-flex justify-content-between flex-wrap gap-2">
                     <button
                       onClick={() => navigate(`/groups/${group.id}`)}
                       className="btn btn-primary btn-sm"
@@ -208,12 +208,22 @@ const UserGroupsPage = () => {
                     </button>
 
                     {group.creator_id === user.id ? (
-                      <button
-                        onClick={() => handleDeleteGroup(group.id)}
-                        className="btn btn-outline-danger btn-sm"
-                      >
-                        Delete
-                      </button>
+                      <div className="d-flex gap-2">
+                        <button
+                          onClick={() => handleDeleteGroup(group.id)}
+                          className="btn btn-outline-danger btn-sm"
+                        >
+                          Delete
+                        </button>
+                        <button
+                          onClick={() =>
+                            navigate(`/groups/${group.id}/members/${group.membership_id}/edit-role`)
+                          }
+                          className="btn btn-outline-secondary btn-sm"
+                        >
+                          Edit Role
+                        </button>
+                      </div>
                     ) : (
                       <button
                         onClick={() => handleLeaveGroup(group.membership_id)}
