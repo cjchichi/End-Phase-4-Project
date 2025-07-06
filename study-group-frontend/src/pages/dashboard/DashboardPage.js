@@ -304,7 +304,6 @@ const Dashboard = () => {
         <h5 className="card-title">Manage My Groups</h5>
         <p className="card-text">Leave or delete groups you've joined or created.</p>
         <Link to="/my-groups" className="btn btn-warning mt-auto">Manage Groups</Link>
-        <Link to={`/groups/${group.id}/edit`} className="btn btn-warning mt-2">Edit Group</Link>
         </div>
         </div>  
         </div>

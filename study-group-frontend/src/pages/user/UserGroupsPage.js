@@ -136,6 +136,8 @@ const UserGroupsPage = () => {
         if (!response.ok) throw new Error('Failed to fetch user groups');
         const data = await response.json();
         setGroups(data);
+        console.log("User:", user);
+        console.log("Groups:", data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -144,7 +146,7 @@ const UserGroupsPage = () => {
     };
 
     if (token) fetchUserGroups();
-  }, [token]);
+  }, [token, user]);
 
   const handleLeaveGroup = async (membershipId) => {
     if (!window.confirm('Are you sure you want to leave this group?')) return;
@@ -158,7 +160,6 @@ const UserGroupsPage = () => {
       });
 
       if (!res.ok) throw new Error('Failed to leave group');
-
       setGroups(prev => prev.filter(g => g.membership_id !== membershipId));
     } catch (err) {
       alert(err.message);
@@ -177,7 +178,6 @@ const UserGroupsPage = () => {
       });
 
       if (!res.ok) throw new Error('Failed to delete group');
-
       setGroups(prev => prev.filter(g => g.id !== groupId));
     } catch (err) {
       alert(err.message);
@@ -207,7 +207,7 @@ const UserGroupsPage = () => {
                       View
                     </button>
 
-                    {group.creator_id === user.id ? (
+                    {group.creator_id === user?.id ? (
                       <div className="d-flex gap-2">
                         <button
                           onClick={() => handleDeleteGroup(group.id)}
@@ -215,22 +215,26 @@ const UserGroupsPage = () => {
                         >
                           Delete
                         </button>
-                        <button
-                          onClick={() =>
-                            navigate(`/groups/${group.id}/members/${group.membership_id}/edit-role`)
-                          }
-                          className="btn btn-outline-secondary btn-sm"
-                        >
-                          Edit Role
-                        </button>
+                        {group.membership_id && (
+                          <button
+                            onClick={() =>
+                              navigate(`/groups/${group.id}/members/${group.membership_id}/edit-role`)
+                            }
+                            className="btn btn-outline-secondary btn-sm"
+                          >
+                            Edit Role
+                          </button>
+                        )}
                       </div>
                     ) : (
-                      <button
-                        onClick={() => handleLeaveGroup(group.membership_id)}
-                        className="btn btn-danger btn-sm"
-                      >
-                        Leave
-                      </button>
+                      group.membership_id && (
+                        <button
+                          onClick={() => handleLeaveGroup(group.membership_id)}
+                          className="btn btn-danger btn-sm"
+                        >
+                          Leave
+                        </button>
+                      )
                     )}
                   </div>
                 </div>
