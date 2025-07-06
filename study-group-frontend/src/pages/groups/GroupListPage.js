@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import GroupCard from '../../components/groups/GroupCard';
 import GroupSearch from '../../components/groups/GroupSearch';
 import useGroups from '../../hooks/useGroups';
+import { Link } from 'react-router-dom';
 
 const GroupListPage = () => {
   const { groups, loading, error } = useGroups();
@@ -26,7 +27,7 @@ const GroupListPage = () => {
         {filteredGroups.map(group => (
           <div className="col-md-4" key={group.id}>
             <GroupCard group={group} />
-            <link to ={`/groups/${group.id}/members`}>{group.name}</link>
+            <Link to ={`/groups/${group.id}/members`}>{group.name}</Link>
           </div>
         ))}
       </div>
