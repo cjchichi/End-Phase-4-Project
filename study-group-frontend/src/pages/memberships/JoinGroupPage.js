@@ -101,7 +101,7 @@ const JoinGroupPage = () => {
 };
 
 export default JoinGroupPage;
-*/
+*
 
 
 import React, { useContext } from 'react';
@@ -145,6 +145,36 @@ const JoinGroupPage = () => {
       <button onClick={handleJoin}>Confirm Join</button>
     </div>
   );
+};
+
+export default JoinGroupPage;
+*/
+
+// src/pages/memberships/JoinGroupPage.js
+import React, { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { createMembership } from '../../services/membershipService';
+
+const JoinGroupPage = () => {
+    const { id } = useParams();
+    const [role, setRole] = useState('member'); // Default role
+    const navigate = useNavigate();
+
+    const handleJoinGroup = async () => {
+        try {
+            await createMembership({ user_id: 1, study_group_id: id, role }); // Replace user_id with actual user ID
+            navigate(`/groups/${id}/members`);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    return (
+        <div>
+            <h2>Join Group</h2>
+            <button onClick={handleJoinGroup}>Join as {role}</button>
+        </div>
+    );
 };
 
 export default JoinGroupPage;

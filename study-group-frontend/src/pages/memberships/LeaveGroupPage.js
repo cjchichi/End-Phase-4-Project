@@ -119,7 +119,7 @@ const LeaveGroupPage = () => {
 };
 
 export default LeaveGroupPage;
-*/
+*
 
 import React, { useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -170,3 +170,4 @@ const LeaveGroupPage = () => {
 };
 
 export default LeaveGroupPage;
+*/

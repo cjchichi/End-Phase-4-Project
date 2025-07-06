@@ -122,7 +122,7 @@ const MemberListPage = () => {
 export default MemberListPage;
 */
 
-
+/*
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
@@ -164,9 +164,43 @@ const MemberListPage = () => {
   return (
     <div>
       <h2>Members</h2>
-      {/* Render members here */}
+      {/* Render members here *}
     </div>
   );
+};
+
+export default MemberListPage;
+*/
+
+
+// src/pages/memberships/MemberListPage.js
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import MemberList from '../../components/memberships/MemberList';
+import { getMembers } from '../../services/membershipService'; // Create this function in your service
+
+const MemberListPage = () => {
+    const { id } = useParams();
+    const [members, setMembers] = useState([]);
+
+    useEffect(() => {
+        const fetchMembers = async () => {
+            try {
+                const membersData = await getMembers(id); // Implement this function in your service
+                setMembers(membersData);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchMembers();
+    }, [id]);
+
+    return (
+        <div>
+            <h2>Members List</h2>
+            <MemberList members={members} />
+        </div>
+    );
 };
 
 export default MemberListPage;

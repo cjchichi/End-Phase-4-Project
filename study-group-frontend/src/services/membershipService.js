@@ -1,3 +1,4 @@
+/*
 export const joinGroup = async (groupId, token) => {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/api/memberships`, {
     method: 'POST',
@@ -65,4 +66,57 @@ export const fetchUserMemberships = async (userId, token) => {
   });
   if (!response.ok) throw new Error('Failed to fetch user memberships');
   return await response.json();
+};
+*/
+
+// src/services/membershipService.js
+const API_URL = process.env.REACT_APP_API_URL; // Ensure this is set in your .env file
+
+export const createMembership = async (membershipData) => {
+    const response = await fetch(`${API_URL}/memberships`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(membershipData),
+    });
+    if (!response.ok) {
+        throw new Error('Failed to create membership');
+    }
+    return await response.json();
+};
+
+export const leaveGroup = async (membershipId) => {
+    const response = await fetch(`${API_URL}/memberships/${membershipId}`, {
+        method: 'DELETE',
+    });
+    if (!response.ok) {
+        throw new Error('Failed to leave group');
+    }
+    return await response.json();
+};
+
+export const updateMembership = async (membershipId, role) => {
+    const response = await fetch(`${API_URL}/memberships/${membershipId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ role }),
+    });
+    if (!response.ok) {
+        throw new Error('Failed to update membership');
+    }
+    return await response.json();
+};
+
+// Add the getMembers function
+export const getMembers = async (groupId) => {
+    const response = await fetch(`${API_URL}/memberships?study_group_id=${groupId}`, {
+        method: 'GET',
+    });
+    if (!response.ok) {
+        throw new Error('Failed to fetch members');
+    }
+    return await response.json();
 };

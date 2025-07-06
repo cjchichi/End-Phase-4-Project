@@ -155,7 +155,7 @@ const EditMemberRolePage = () => {
 };
 
 export default EditMemberRolePage;
-*/
+*
 
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -217,6 +217,46 @@ const EditMemberRolePage = () => {
       <button onClick={handleUpdate}>Update Role</button>
     </div>
   );
+};
+
+export default EditMemberRolePage;
+*/
+
+// src/pages/memberships/EditMemberRolePage.js
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { updateMembership } from '../../services/membershipService';
+
+const EditMemberRolePage = () => {
+    const { id, memberId } = useParams();
+    const [role, setRole] = useState('');
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await updateMembership(memberId, role);
+            navigate(`/groups/${id}/members`);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    return (
+        <div>
+            <h2>Edit Member Role</h2>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    placeholder="Enter new role"
+                    required
+                />
+                <button type="submit">Update Role</button>
+            </form>
+        </div>
+    );
 };
 
 export default EditMemberRolePage;

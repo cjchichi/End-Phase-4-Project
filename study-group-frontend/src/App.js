@@ -80,8 +80,8 @@ import JoinGroupPage from './pages/memberships/JoinGroupPage';
 import LeaveGroupPage from './pages/memberships/LeaveGroupPage';
 import MemberListPage from './pages/memberships/MemberListPage';
 import EditMemberRolePage from './pages/memberships/EditMemberRolePage';
-//import UserGroupsPage from './pages/user/UserGroupsPage';
-//import UserProfilePage from './pages/user/UserProfilePage';
+import UserGroupsPage from './pages/user/UserGroupsPage';
+import UserProfilePage from './pages/user/UserProfilePage';
 
 
 // Styles
@@ -110,7 +110,8 @@ function App() {
               <Route path="/groups/:id/members/:memberId/edit" element={<ProtectedRoute><EditMemberRolePage /></ProtectedRoute>} />
               <Route path="/my-groups" element={<ProtectedRoute><User GroupsPage /></ProtectedRoute>} />
               <Route path="/profile" element={<ProtectedRoute><User ProfilePage /></ProtectedRoute>} />
-              
+              <Route path="/my-groups" element={<ProtectedRoute><UserGroupsPage /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><UserProfilePage /></ProtectedRoute>} />
             </Routes>
           </div>
         </div>

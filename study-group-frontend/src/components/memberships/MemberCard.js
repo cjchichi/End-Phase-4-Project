@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 
 const MemberCard = ({ member }) => {
@@ -9,6 +10,22 @@ const MemberCard = ({ member }) => {
       </div>
     </div>
   );
+};
+
+export default MemberCard;
+*/
+
+// src/components/MemberCard.js
+import React from 'react';
+
+const MemberCard = ({ member }) => {
+    return (
+        <div>
+            <h3>{member.name}</h3>
+            <p>Role: {member.role}</p>
+            {/* Add buttons for editing role or leaving group */}
+        </div>
+    );
 };
 
 export default MemberCard;
