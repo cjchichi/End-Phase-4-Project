@@ -9,7 +9,7 @@ const LoginPage = () => {
 
   const handleLogin = (token) => {
     console.log("Logged in with token", token)
-    login (token);
+    login (token, user);
     navigate('/dashboard');
   }
   return (
