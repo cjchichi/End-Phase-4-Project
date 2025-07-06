@@ -24,7 +24,7 @@
    });
   */
  
-   const express = require('express');
+const express = require('express');
 const cors = require('cors'); // Import the cors package
 const { json } = require('body-parser'); // Import body-parser for parsing JSON
 const { GroupMembership, StudyGroup, db } = require('./models'); // Adjust the path to your models
@@ -35,7 +35,7 @@ const app = express();
 
 // Use CORS middleware
 app.use(cors({
-  origin: 'https://study-group-app.netlify.app' // Replace with your frontend URL
+  origin: 'https://study-group-app.netlify.app/' // Replace with your frontend URL
 }));
 
 // Middleware for parsing application/json
@@ -115,3 +115,11 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+/*
+   const cors = require('cors');
+   app.use(cors({
+     origin: 'https://study-group-app.netlify.app/' // Your frontend URL
+   }));
+   */

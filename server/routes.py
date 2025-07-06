@@ -342,7 +342,7 @@ def update_group(id):
     group.name = data['name']
     group.description = data['description']
     db.session.commit()
-    
+
     return jsonify(group_schema.dump(group))
 
 @api_bp.route('/groups/<int:id>', methods=['DELETE'])
@@ -398,6 +398,9 @@ def create_membership():
     db.session.add(membership)
     db.session.commit()
     return jsonify(membership_schema.dump(membership)), 201
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @api_bp.route('/memberships/<int:id>', methods=['DELETE'])
 def leave_group(id):
