@@ -39,12 +39,19 @@ function App() {
               <Route path="/groups" element={<GroupListPage />} />
               <Route path="/groups/:id" element={<GroupDetailPage />} />
               <Route path="/groups/:id/members" element={<MemberListPage />} />
+              <Route path="/groups" element={<GroupListPage />} />
+              <Route path="/groups/:id/join" element={<JoinGroupPage />} />
+              <Route path="/groups/:id/leave" element={<LeaveGroupPage />} />
+              <Route path="/groups/:id/members/:memberId/edit" element={<EditMemberRolePage />} />
+              <Route path="/groups/:id/edit" element={<EditGroupPage />} /> {/* Add this line */}
+
               
               <Route path="/groups/new" element={<ProtectedRoute><CreateGroupPage /></ProtectedRoute>} />
               <Route path="/groups/:id/edit" element={<ProtectedRoute><EditGroupPage /></ProtectedRoute>} />
               <Route path="/groups/:id/join" element={<ProtectedRoute><JoinGroupPage /></ProtectedRoute>} />
               <Route path="/groups/:id/leave" element={<ProtectedRoute><LeaveGroupPage /></ProtectedRoute>} />
               <Route path="/groups/:id/members/:memberId/edit" element={<ProtectedRoute><EditMemberRolePage /></ProtectedRoute>} />
+              <Route path="/groups/:id/edit" element={<ProtectedRoute><EditGroupPage /></ProtectedRoute>} />
               
               <Route path="/my-groups" element={<ProtectedRoute><UserGroupsPage /></ProtectedRoute>} />
               <Route path="/profile" element={<ProtectedRoute><UserProfilePage /></ProtectedRoute>} />
@@ -57,3 +64,6 @@ function App() {
 }
 
 export default App;
+
+
+
