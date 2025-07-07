@@ -218,7 +218,7 @@ const UserGroupsPage = () => {
                         {group.membership_id && (
                           <button
                             onClick={() =>
-                              navigate(`/groups/${group.id}/members/${group.membership_id}/edit-role`)
+                              navigate(`/groups/${group.id}/members/${group.membership_id}/edit`)
                             }
                             className="btn btn-outline-secondary btn-sm"
                           >
