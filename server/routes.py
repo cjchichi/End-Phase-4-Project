@@ -456,3 +456,9 @@ def my_memberships():
     user_id = get_jwt_identity()
     memberships = GroupMembership.query.filter_by(user_id=user_id).all()
     return jsonify(memberships_schema.dump(memberships))
+
+@api_bp.route('/memberships/<int:id>', methods=['GET'])
+@jwt_required()
+def get_membership(id):
+    membership = GroupMembership.query.get_or_404(id)
+    return jsonify(membership_schema.dump(membership))
